@@ -1,490 +1,563 @@
-import React, { useState, useEffect } from 'react';
-import { Trophy, MapPin, Calendar, Users, ChevronRight, Flag, Shield, CheckCircle, Shirt, Phone, Mail, MessageSquare, ArrowRight, Star } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Padel Nations Cup - Road to Madrid</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuración de Tema -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 950: '#020617' },
+                        amber: { 500: '#f59e0b', 400: '#fbbf24' }
+                    }
+                }
+            }
+        }
+    </script>
 
-const App = () => {
-  const [daysLeft, setDaysLeft] = useState(0);
-  const [activeTab, setActiveTab] = useState('overview');
-  const [selectedCountry, setSelectedCountry] = useState(null);
+    <!-- Iconos Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        ::selection { background-color: #f59e0b; color: black; }
+        body { background-color: #020617; color: white; }
+        .lang-active { color: #f59e0b; font-weight: 900; border-bottom: 2px solid #f59e0b; }
+        .lang-inactive { color: #94a3b8; font-weight: 500; }
+        .lang-inactive:hover { color: white; }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
 
-  // Fecha final: 18 Mayo 2026 (Ajustar año según necesidad real)
-  useEffect(() => {
-    const targetDate = new Date('2026-05-18T00:00:00');
-    const interval = setInterval(() => {
-      const now = new Date();
-      const difference = targetDate.getTime() - now.getTime();
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      setDaysLeft(days > 0 ? days : 0);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-950 text-white font-sans selection:bg-amber-500 selection:text-black overflow-x-hidden">
-      
-      {/* --- NAVBAR --- */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {/* Logo Placeholder - Sustituir por tu imagen del logo */}
-            <div className="w-10 h-10 bg-gradient-to-tr from-amber-400 to-amber-600 rounded-full flex items-center justify-center font-bold text-slate-900 border-2 border-white shadow-[0_0_15px_rgba(245,158,11,0.5)]">W</div>
-            <div className="leading-none hidden sm:block">
-                <span className="block font-black text-lg tracking-tighter uppercase text-white">World Padel</span>
-                <span className="block font-bold text-sm tracking-widest text-amber-500 uppercase">Nations Cup</span>
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <!-- Logo -->
+                <div class="w-10 h-10 bg-gradient-to-tr from-amber-400 to-amber-600 rounded-full flex items-center justify-center font-bold text-slate-900 border-2 border-white shadow-[0_0_15px_rgba(245,158,11,0.5)]">W</div>
+                <div class="leading-none hidden sm:block">
+                    <span class="block font-black text-lg tracking-tighter uppercase text-white">World Padel</span>
+                    <span class="block font-bold text-sm tracking-widest text-amber-500 uppercase">Nations Cup</span>
+                </div>
             </div>
-          </div>
-          <button 
-            onClick={() => scrollToSection('inscripcion')}
-            className="bg-amber-500 hover:bg-white hover:text-black text-slate-950 font-black uppercase tracking-wide px-6 py-2 rounded-sm transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.4)]"
-          >
-            Inscríbete
-          </button>
-        </div>
-      </nav>
+            
+            <div class="flex items-center gap-6">
+                <!-- Language Switcher -->
+                <div class="flex items-center gap-3 text-sm tracking-widest">
+                    <button onclick="setLanguage('es')" id="btn-es" class="lang-active transition-all pb-1">ES</button>
+                    <span class="text-slate-600">|</span>
+                    <button onclick="setLanguage('en')" id="btn-en" class="lang-inactive transition-all pb-1">EN</button>
+                </div>
 
-      {/* --- HERO SECTION --- */}
-      <header className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
-        {/* Background Overlay darker for text readability */}
-        {/* NOTA: Aquí iría la foto de las pistas azules de noche que pasaste */}
-        <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
-        <div className="absolute inset-0 z-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-900/40"></div>
+                <button onclick="document.getElementById('inscripcion').scrollIntoView({behavior: 'smooth'})" 
+                    class="bg-amber-500 hover:bg-white hover:text-black text-slate-950 font-black uppercase tracking-wide px-4 md:px-6 py-2 rounded-sm transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.4)] text-xs md:text-base">
+                    <span data-i18n="navBtn">Inscríbete</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
+        <div class="absolute inset-0 z-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-900/40"></div>
         
-        <div className="relative z-10 container mx-auto px-4 text-center mt-10">
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-1 border border-amber-500/50 rounded-full bg-slate-900/50 backdrop-blur text-amber-400 text-xs md:text-sm font-bold tracking-widest uppercase animate-pulse">
-            <span className="w-2 h-2 rounded-full bg-red-500"></span> Inscripciones Abiertas
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] drop-shadow-2xl">
-            Road to <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-600">Madrid</span>
-          </h1>
-          
-          <p className="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 font-light leading-relaxed">
-            Compite en tu club. Clasifica para tu selección.<br className="hidden md:block"/>
-            Representa a tu país en el <strong className="text-white border-b-2 border-amber-500">Mundial Amateur</strong>.
-          </p>
-          
-          <div className="flex flex-col md:flex-row gap-6 justify-center items-center mb-16">
-            <button 
-               onClick={() => scrollToSection('paises')}
-               className="group w-full md:w-auto bg-amber-500 text-slate-950 px-10 py-4 font-black uppercase tracking-widest hover:bg-white transition-all flex items-center justify-center gap-3 text-lg rounded-sm shadow-[0_0_30px_rgba(245,158,11,0.3)]"
-            >
-              Selecciona tu país
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
-            </button>
+        <div class="relative z-10 container mx-auto px-4 text-center mt-10">
+            <div class="inline-flex items-center gap-2 mb-6 px-4 py-1 border border-amber-500/50 rounded-full bg-slate-900/50 backdrop-blur text-amber-400 text-xs md:text-sm font-bold tracking-widest uppercase animate-pulse">
+                <span class="w-2 h-2 rounded-full bg-red-500"></span> <span data-i18n="heroBadge">Inscripciones Abiertas</span>
+            </div>
             
-            {/* Countdown */}
-            <div className="flex items-center gap-4 bg-black/60 border border-white/20 px-8 py-3 rounded-lg backdrop-blur-md">
-              <div className="text-right">
-                <span className="block text-[10px] text-slate-400 uppercase tracking-widest mb-1">Cuenta atrás Final</span>
-                <span className="block text-3xl font-mono font-bold text-white tracking-widest">{daysLeft} DÍAS</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* --- TIMELINE: ROAD TO GLORY --- */}
-      <section className="py-24 bg-slate-950 relative border-t border-white/10 overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-amber-500/20 to-transparent hidden md:block"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-4 text-white">El Camino a la <span className="text-amber-500">Gloria</span></h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">Un proceso de ascenso desde tu club local hasta la cima del mundo.</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 relative">
+            <h1 class="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] drop-shadow-2xl">
+                Road to <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-600">Madrid</span>
+            </h1>
             
-            {/* Step 1 */}
-            <div className="group relative bg-slate-900 p-8 border border-white/10 hover:border-amber-500/50 transition-all rounded-sm hover:-translate-y-2 duration-300">
-              <div className="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">01</div>
-              <h3 className="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10">Fase Local</h3>
-              <p className="text-slate-300 text-sm mb-6 leading-relaxed relative z-10">
-                Torneos en 8 sedes internacionales. Abierto a cualquier pareja amateur. Clasificatorio directo.
-              </p>
-              <div className="bg-black/40 p-4 rounded border-l-2 border-amber-500">
-                <p className="text-xs text-slate-400 font-bold uppercase mb-2">Categorías</p>
-                <ul className="text-xs text-slate-500 space-y-1">
-                    <li className="flex items-center gap-2"><CheckCircle className="w-3 h-3 text-amber-500"/> 4 Categorías Masculinas (1ª-4ª)</li>
-                    <li className="flex items-center gap-2"><CheckCircle className="w-3 h-3 text-amber-500"/> 3 Categorías Femeninas (2ª-4ª)</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="group relative bg-slate-900 p-8 border border-white/10 hover:border-amber-500/50 transition-all rounded-sm hover:-translate-y-2 duration-300 mt-8 md:mt-0">
-               <div className="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">02</div>
-              <h3 className="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10">National Selection</h3>
-              <p className="text-slate-300 text-sm mb-6 leading-relaxed relative z-10">
-                Los ganadores locales se clasifican. Las <strong className="text-white">3 mejores parejas</strong> de cada categoría forman la Selección Nacional.
-              </p>
-              <div className="bg-amber-500/10 p-4 rounded border border-amber-500/20 flex items-center gap-3">
-                <Trophy className="w-8 h-8 text-amber-500" /> 
-                <span className="text-xs font-bold text-amber-200 uppercase">Premio: Representar a tu país</span>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="group relative bg-gradient-to-b from-slate-900 to-amber-900/20 p-8 border border-amber-500/40 hover:border-amber-500 transition-all rounded-sm hover:-translate-y-2 duration-300 mt-8 md:mt-0 shadow-[0_0_40px_rgba(245,158,11,0.1)]">
-               <div className="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">03</div>
-              <h3 className="text-2xl font-black uppercase mb-4 text-white relative z-10">The World Final</h3>
-              <p className="text-slate-300 text-sm mb-6 leading-relaxed relative z-10">
-                Madrid, 18-20 Mayo. Enfrentamiento por selecciones. Fase de grupos y Fase Final.
-              </p>
-              <div className="inline-block bg-amber-500 text-black text-xs font-black px-4 py-2 uppercase rounded-sm tracking-wider">
-                Gran Final Mundial
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* --- MADRID EXPERIENCE --- */}
-      <section className="py-0 grid md:grid-cols-2 bg-slate-900 border-y border-white/10">
-        <div className="relative min-h-[500px] md:min-h-full group overflow-hidden">
-           {/* NOTA: Aquí iría tu foto del Skyline de Madrid o Plaza Mayor */}
-           <img 
-            src="https://images.unsplash.com/photo-1543783207-925246e62169?q=80&w=2070&auto=format&fit=crop" 
-            alt="Madrid Plaza Mayor" 
-            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-transparent to-transparent md:bg-gradient-to-t"></div>
-          <div className="absolute bottom-12 left-8 md:left-12">
-            <h3 className="text-5xl md:text-7xl font-black uppercase text-white mb-2 leading-none">Destino<br/>Madrid</h3>
-            <p className="text-amber-500 font-bold tracking-[0.5em] text-sm md:text-base border-t border-amber-500 pt-4 mt-4 inline-block">CAPITAL MUNDIAL DEL PÁDEL</p>
-          </div>
-        </div>
-        <div className="p-12 md:p-24 flex flex-col justify-center bg-slate-950 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-900/20 via-slate-950 to-slate-950">
-          <h3 className="text-3xl font-black uppercase mb-12 text-white">Experiencia de <span className="text-amber-500">Élite</span></h3>
-          
-          <ul className="space-y-10">
-            <li className="flex items-start gap-6 group">
-              <div className="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors"><Shirt className="w-6 h-6"/></div>
-              <div>
-                <h4 className="font-bold uppercase text-white text-lg mb-1">Welcome Pack Oficial</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">Equipación completa de selección nacional (juego + paseo) con logos de patrocinadores globales. Uso obligatorio.</p>
-              </div>
-            </li>
-            <li className="flex items-start gap-6 group">
-              <div className="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors"><Star className="w-6 h-6"/></div>
-              <div>
-                <h4 className="font-bold uppercase text-white text-lg mb-1">Hospitality & Networking</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">Cóctel de bienvenida exclusivo donde se realiza el sorteo de cuadros. El primer gran momento de conexión.</p>
-              </div>
-            </li>
-             <li className="flex items-start gap-6 group">
-              <div className="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors"><Users className="w-6 h-6"/></div>
-              <div>
-                <h4 className="font-bold uppercase text-white text-lg mb-1">Feria Andaluza Experience</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">Día 21. Integramos el torneo con una experiencia cultural única en una caseta de feria. Comunidad multicultural de negocios.</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      {/* --- COUNTRY SELECTOR (RANKING VISUAL) --- */}
-      <section id="paises" className="py-24 bg-slate-950 relative">
-        <div className="container mx-auto px-4 text-center">
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-white mb-6">
-              Representa a tu <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Bandera</span>
-            </h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light">
-              No juegas solo por un trofeo. <span className="text-white font-medium">Juegas por tus colores.</span>
+            <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 font-light leading-relaxed">
+                <span data-i18n="heroText1">Compite en tu club. Clasifica para tu selección.</span><br class="hidden md:block"/>
+                <span data-i18n="heroText2">Representa a tu país en el</span> <strong class="text-white border-b-2 border-amber-500" data-i18n="heroTextHighlight">Mundial Amateur</strong>.
             </p>
-            <p className="text-sm text-slate-500 mt-4 uppercase tracking-widest">Selecciona tu sede para iniciar inscripción</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
-            <CountryCard 
-              name="España" 
-              flag="🇪🇸" 
-              status="Abierta" 
-              onClick={() => { setSelectedCountry('España'); scrollToSection('inscripcion'); }} 
-            />
-            <CountryCard 
-              name="México" 
-              flag="🇲🇽" 
-              status="Abierta" 
-              onClick={() => { setSelectedCountry('México'); scrollToSection('inscripcion'); }} 
-            />
-            <CountryCard 
-              name="Italia" 
-              flag="🇮🇹" 
-              status="Abierta" 
-              onClick={() => { setSelectedCountry('Italia'); scrollToSection('inscripcion'); }} 
-            />
-            <CountryCard 
-              name="Portugal" 
-              flag="🇵🇹" 
-              status="Pocas Plazas" 
-              type="warning"
-              onClick={() => { setSelectedCountry('Portugal'); scrollToSection('inscripcion'); }} 
-            />
-            <CountryCard 
-              name="UK" 
-              flag="🇬🇧" 
-              status="Abierta" 
-              onClick={() => { setSelectedCountry('UK'); scrollToSection('inscripcion'); }} 
-            />
-            <CountryCard 
-              name="Dubai" 
-              flag="🇦🇪" 
-              status="Sold Out" 
-              disabled={true}
-              onClick={() => {}} 
-            />
-            <CountryCard 
-              name="Indonesia" 
-              flag="🇮🇩" 
-              status="Próximamente" 
-              disabled={true}
-              onClick={() => {}} 
-            />
-            <CountryCard 
-              name="Costa Rica" 
-              flag="🇨🇷" 
-              status="Abierta" 
-              onClick={() => { setSelectedCountry('Costa Rica'); scrollToSection('inscripcion'); }} 
-            />
-          </div>
+            
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center mb-16">
+                <button onclick="document.getElementById('paises').scrollIntoView({behavior: 'smooth'})"
+                   class="group w-full md:w-auto bg-amber-500 text-slate-950 px-10 py-4 font-black uppercase tracking-widest hover:bg-white transition-all flex items-center justify-center gap-3 text-lg rounded-sm shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+                  <span data-i18n="heroCta">Selecciona tu país</span>
+                  <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                
+                <div class="flex items-center gap-4 bg-black/60 border border-white/20 px-8 py-3 rounded-lg backdrop-blur-md">
+                    <div class="text-right">
+                        <span class="block text-[10px] text-slate-400 uppercase tracking-widest mb-1" data-i18n="countdownLabel">Cuenta atrás Final</span>
+                        <span id="countdown" class="block text-3xl font-mono font-bold text-white tracking-widest">0 DÍAS</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
+    </header>
 
-      {/* --- REGISTRATION FORM --- */}
-      <section id="inscripcion" className="py-24 bg-slate-900 border-t border-white/5 relative">
-         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
-        <div className="container mx-auto px-4 max-w-4xl relative z-10">
-          <div className="bg-slate-950 border border-white/10 rounded-sm p-8 md:p-16 shadow-2xl relative overflow-hidden">
-            {/* Corner Accent */}
-            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500 blur-[80px] opacity-20 pointer-events-none"></div>
-
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-black uppercase text-white mb-2 tracking-tighter">Inscripción Oficial</h2>
-              <div className="w-20 h-1 bg-amber-500 mx-auto mb-4"></div>
-              <p className="text-slate-400">Rellena el formulario de la Fase Local. <br/>Recibirás la confirmación inmediata en tu email.</p>
+    <!-- TIMELINE SECTION -->
+    <section class="py-24 bg-slate-950 relative border-t border-white/10 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-amber-500/20 to-transparent hidden md:block"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-4 text-white">
+                    <span data-i18n="timelineTitle1">El Camino a la</span> <span class="text-amber-500" data-i18n="timelineTitle2">Gloria</span>
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg" data-i18n="timelineSubtitle">Un proceso de ascenso desde tu club local hasta la cima del mundo.</p>
             </div>
 
-            <form className="space-y-10">
-              
-              {/* Sede y Categoría */}
-              <div className="grid md:grid-cols-2 gap-8 p-6 bg-slate-900/50 border border-white/5 rounded-sm">
-                <div>
-                  <label className="block text-xs font-bold uppercase text-amber-500 mb-2 tracking-wider">Sede Seleccionada</label>
-                  <div className="relative">
-                    <MapPin className="absolute top-3.5 left-3 w-5 h-5 text-slate-500" />
-                    <select 
-                        className="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 pl-10 focus:border-amber-500 focus:outline-none appearance-none font-medium"
-                        value={selectedCountry || ''}
-                        onChange={(e) => setSelectedCountry(e.target.value)}
-                    >
-                        <option value="" disabled>Elige tu sede</option>
-                        <option value="España">España</option>
-                        <option value="México">México</option>
-                        <option value="Italia">Italia</option>
-                        <option value="Portugal">Portugal</option>
-                        <option value="UK">UK</option>
-                        <option value="Costa Rica">Costa Rica</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase text-amber-500 mb-2 tracking-wider">Categoría</label>
-                  <div className="relative">
-                    <Trophy className="absolute top-3.5 left-3 w-5 h-5 text-slate-500" />
-                    {/* CORRECCIÓN APLICADA: defaultValue en select, 'selected' eliminado de option */}
-                    <select 
-                      defaultValue="" 
-                      className="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 pl-10 focus:border-amber-500 focus:outline-none appearance-none font-medium"
-                    >
-                        <option value="" disabled>Selecciona nivel</option>
-                        <optgroup label="Masculina" className="bg-slate-900">
-                        <option>1ª Masculina</option>
-                        <option>2ª Masculina</option>
-                        <option>3ª Masculina</option>
-                        <option>4ª Masculina</option>
-                        </optgroup>
-                        <optgroup label="Femenina" className="bg-slate-900">
-                        <option>2ª Femenina</option>
-                        <option>3ª Femenina</option>
-                        <option>4ª Femenina</option>
-                        </optgroup>
-                    </select>
-                  </div>
-                  <p className="text-[10px] text-slate-500 mt-2 flex items-center gap-1"><Shield className="w-3 h-3"/> Solo se permite jugar en una categoría.</p>
-                </div>
-              </div>
-
-              {/* Jugador 1 */}
-              <div className="border-t border-white/10 pt-8">
-                <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3 uppercase tracking-tight">
-                    <span className="bg-amber-500 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm">1</span> 
-                    Datos Jugador 1
-                </h3>
-                <div className="grid md:grid-cols-2 gap-5">
-                  <Input placeholder="Nombre y Apellidos" />
-                  <Input placeholder="Email" type="email" />
-                  <Input placeholder="Teléfono" type="tel" />
-                  <div className="flex gap-4">
-                     <select className="w-1/2 bg-slate-950 border border-slate-700 text-slate-300 rounded-sm p-3 text-sm focus:border-amber-500 focus:outline-none">
-                        <option>Talla Camiseta</option>
-                        <option>S</option><option>M</option><option>L</option><option>XL</option>
-                     </select>
-                     <select className="w-1/2 bg-slate-950 border border-slate-700 text-slate-300 rounded-sm p-3 text-sm focus:border-amber-500 focus:outline-none">
-                        <option>Talla Pantalón</option>
-                        <option>S</option><option>M</option><option>L</option><option>XL</option>
-                     </select>
-                  </div>
-                </div>
-              </div>
-
-              {/* Jugador 2 */}
-              <div className="border-t border-white/10 pt-8">
-                <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3 uppercase tracking-tight">
-                     <span className="bg-amber-500 text-black w-8 h-8 flex items-center justify-center rounded-full text-sm">2</span> 
-                    Datos Jugador 2
-                </h3>
-                <div className="grid md:grid-cols-2 gap-5">
-                  <Input placeholder="Nombre y Apellidos" />
-                  <Input placeholder="Email" type="email" />
-                  <Input placeholder="Teléfono" type="tel" />
-                   <div className="flex gap-4">
-                     <select className="w-1/2 bg-slate-950 border border-slate-700 text-slate-300 rounded-sm p-3 text-sm focus:border-amber-500 focus:outline-none">
-                        <option>Talla Camiseta</option>
-                        <option>S</option><option>M</option><option>L</option><option>XL</option>
-                     </select>
-                     <select className="w-1/2 bg-slate-950 border border-slate-700 text-slate-300 rounded-sm p-3 text-sm focus:border-amber-500 focus:outline-none">
-                        <option>Talla Pantalón</option>
-                        <option>S</option><option>M</option><option>L</option><option>XL</option>
-                     </select>
-                  </div>
-                </div>
-              </div>
-
-              {/* Extra Info */}
-              <div className="border-t border-white/10 pt-8">
-                <div className="mb-6">
-                    <label className="block text-xs font-bold uppercase text-slate-500 mb-2 tracking-wider">¿Cómo nos has conocido?</label>
-                    <select className="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
-                        <option>A través del club</option>
-                        <option>Por amigos</option>
-                        <option>Redes Sociales</option>
-                        <option>Otros</option>
-                    </select>
-                </div>
-                <textarea 
-                  placeholder="Mensaje para el organizador (opcional)" 
-                  className="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 h-24 focus:border-amber-500 focus:outline-none placeholder:text-slate-600"
-                ></textarea>
-              </div>
-
-              {/* Checks */}
-              <div className="space-y-4 text-sm text-slate-400 p-6 bg-slate-900/30 rounded-sm">
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <input type="checkbox" className="mt-1 accent-amber-500 w-4 h-4" />
-                  <span className="group-hover:text-white transition-colors">He leído y acepto la <span className="text-amber-500 underline decoration-amber-500/30">Normativa de la World Padel Nations Cup</span>.</span>
-                </label>
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <input type="checkbox" className="mt-1 accent-amber-500 w-4 h-4" />
-                  <span className="group-hover:text-white transition-colors">Acepto la política de privacidad y cookies.</span>
-                </label>
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <input type="checkbox" className="mt-1 accent-amber-500 w-4 h-4" />
-                  <span className="group-hover:text-white transition-colors">Declaro tener el consentimiento expreso de ambos jugadores para el uso de sus datos personales.</span>
-                </label>
-              </div>
-
-              <button type="button" className="w-full bg-amber-500 hover:bg-white text-slate-950 font-black uppercase text-xl py-5 rounded-sm transition-all shadow-[0_4px_20px_rgba(245,158,11,0.4)] hover:shadow-[0_4px_30px_rgba(255,255,255,0.4)] tracking-widest">
-                Confirmar Inscripción
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* --- FOOTER --- */}
-      <footer className="bg-black py-16 border-t border-white/10 text-center md:text-left">
-        <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row justify-between items-start gap-12">
-                <div>
-                    <div className="font-black text-3xl uppercase tracking-tighter mb-4 text-white">
-                        World Padel <span className="text-amber-500">Nations Cup</span>
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="group relative bg-slate-900 p-8 border border-white/10 hover:border-amber-500/50 transition-all rounded-sm hover:-translate-y-2 duration-300">
+                    <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">01</div>
+                    <h3 class="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10" data-i18n="step1Title">Fase Local</h3>
+                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step1Desc">Torneos en 8 sedes internacionales. Abierto a cualquier pareja amateur.</p>
+                    <div class="bg-black/40 p-4 rounded border-l-2 border-amber-500">
+                        <ul class="text-xs text-slate-500 space-y-1">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3 h-3 text-amber-500"></i> <span data-i18n="step1List1">4 Categorías Masculinas</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3 h-3 text-amber-500"></i> <span data-i18n="step1List2">3 Categorías Femeninas</span></li>
+                        </ul>
                     </div>
-                    <p className="text-slate-500 text-sm max-w-sm leading-relaxed">
-                        El torneo amateur más prestigioso del mundo. <br/>
-                        8 Países. 1 Destino. La gloria te espera en Madrid.
+                </div>
+
+                <!-- Step 2 -->
+                <div class="group relative bg-slate-900 p-8 border border-white/10 hover:border-amber-500/50 transition-all rounded-sm hover:-translate-y-2 duration-300 mt-8 md:mt-0">
+                    <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">02</div>
+                    <h3 class="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10" data-i18n="step2Title">National Selection</h3>
+                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10">
+                        <span data-i18n="step2Desc">Los ganadores locales se clasifican. Las</span> <strong class="text-white" data-i18n="step2DescBold">3 mejores parejas</strong> <span data-i18n="step2DescEnd">forman la Selección.</span>
                     </p>
-                </div>
-                <div className="grid grid-cols-2 gap-12 text-sm">
-                    <div>
-                        <h4 className="font-bold text-white uppercase mb-4 tracking-wider">Torneo</h4>
-                        <ul className="space-y-2 text-slate-400">
-                            <li><a href="#" className="hover:text-amber-500 transition-colors">Sedes</a></li>
-                            <li><a href="#" className="hover:text-amber-500 transition-colors">Normativa</a></li>
-                            <li><a href="#" className="hover:text-amber-500 transition-colors">Premios</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="font-bold text-white uppercase mb-4 tracking-wider">Contacto</h4>
-                        <ul className="space-y-2 text-slate-400">
-                            <li><a href="#" className="hover:text-amber-500 transition-colors">Soporte Jugadores</a></li>
-                            <li><a href="#" className="hover:text-amber-500 transition-colors">Prensa</a></li>
-                            <li><a href="#" className="hover:text-amber-500 transition-colors">Patrocinadores</a></li>
-                        </ul>
+                    <div class="bg-amber-500/10 p-4 rounded border border-amber-500/20 flex items-center gap-3">
+                        <i data-lucide="trophy" class="w-8 h-8 text-amber-500"></i>
+                        <span class="text-xs font-bold text-amber-200 uppercase" data-i18n="step2Award">Premio: Representar a tu país</span>
                     </div>
                 </div>
-            </div>
-            <div className="border-t border-white/10 mt-12 pt-8 text-center text-slate-700 text-xs uppercase tracking-widest">
-            © 2026 World Padel Nations Cup. Road to Madrid.
+
+                <!-- Step 3 -->
+                <div class="group relative bg-gradient-to-b from-slate-900 to-amber-900/20 p-8 border border-amber-500/40 hover:border-amber-500 transition-all rounded-sm hover:-translate-y-2 duration-300 mt-8 md:mt-0 shadow-[0_0_40px_rgba(245,158,11,0.1)]">
+                    <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">03</div>
+                    <h3 class="text-2xl font-black uppercase mb-4 text-white relative z-10" data-i18n="step3Title">The World Final</h3>
+                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step3Desc">Madrid, 18-20 Mayo. Enfrentamiento por selecciones.</p>
+                    <div class="inline-block bg-amber-500 text-black text-xs font-black px-4 py-2 uppercase rounded-sm tracking-wider" data-i18n="step3Badge">Gran Final Mundial</div>
+                </div>
             </div>
         </div>
-      </footer>
-    </div>
-  );
-};
+    </section>
 
-// Componentes Auxiliares
-const Input = ({ type = "text", placeholder }) => (
-  <input 
-    type={type} 
-    placeholder={placeholder} 
-    className="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none placeholder:text-slate-600 transition-colors"
-  />
-);
+    <!-- MADRID EXPERIENCE -->
+    <section class="py-0 grid md:grid-cols-2 bg-slate-900 border-y border-white/10">
+        <div class="relative min-h-[500px] md:min-h-full group overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1543783207-925246e62169?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Madrid" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000"/>
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-transparent to-transparent md:bg-gradient-to-t"></div>
+            <div class="absolute bottom-12 left-8 md:left-12">
+                <h3 class="text-5xl md:text-7xl font-black uppercase text-white mb-2 leading-none">
+                    <span data-i18n="madridTitle1">Destino</span><br/><span data-i18n="madridTitle2">Madrid</span>
+                </h3>
+                <p class="text-amber-500 font-bold tracking-[0.5em] text-sm md:text-base border-t border-amber-500 pt-4 mt-4 inline-block" data-i18n="madridSubtitle">CAPITAL MUNDIAL DEL PÁDEL</p>
+            </div>
+        </div>
+        <div class="p-12 md:p-24 flex flex-col justify-center bg-slate-950">
+            <h3 class="text-3xl font-black uppercase mb-12 text-white">
+                <span data-i18n="xpTitle">Experiencia de</span> <span class="text-amber-500" data-i18n="xpTitle2">Élite</span>
+            </h3>
+            <ul class="space-y-10">
+                <li class="flex items-start gap-6 group">
+                    <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
+                        <i data-lucide="shirt" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp1Title">Welcome Pack Oficial</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp1Desc">Equipación completa de selección nacional.</p>
+                    </div>
+                </li>
+                <li class="flex items-start gap-6 group">
+                    <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
+                        <i data-lucide="star" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp2Title">Hospitality & Networking</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp2Desc">Cóctel de bienvenida, sorteo y ambiente PRO.</p>
+                    </div>
+                </li>
+                <li class="flex items-start gap-6 group">
+                    <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp3Title">Feria Andaluza Experience</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp3Desc">Networking multicultural único en caseta de feria.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
 
-const CountryCard = ({ name, flag, status, disabled, type = "success", onClick }) => {
-  const statusColors = {
-    success: "text-emerald-400 bg-emerald-400/5 border-emerald-400/20",
-    warning: "text-amber-400 bg-amber-400/5 border-amber-400/20",
-    error: "text-red-400 bg-red-400/5 border-red-400/20",
-    neutral: "text-slate-400 bg-slate-400/5 border-slate-400/20"
-  };
+    <!-- COUNTRY SELECTOR -->
+    <section id="paises" class="py-24 bg-slate-950 relative">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter text-white mb-6">
+                <span data-i18n="countryTitle1">Representa a tu</span> <span class="text-amber-500" data-i18n="countryTitle2">Bandera</span>
+            </h2>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto font-light mb-16">
+                <span data-i18n="countrySubtitle1">No juegas solo por un trofeo.</span> <span class="text-white font-medium" data-i18n="countrySubtitle2">Juegas por tus colores.</span>
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto" id="country-grid">
+                <!-- Se genera con JS -->
+            </div>
+        </div>
+    </section>
 
-  let colorKey = 'success';
-  if (status === 'Sold Out') colorKey = 'error';
-  if (status === 'Próximamente') colorKey = 'neutral';
-  if (status === 'Pocas Plazas') colorKey = 'warning';
+    <!-- REGISTRATION FORM -->
+    <section id="inscripcion" class="py-24 bg-slate-900 border-t border-white/5 relative">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+        <div class="container mx-auto px-4 max-w-4xl relative z-10">
+            <div class="bg-slate-950 border border-white/10 rounded-sm p-8 md:p-16 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500 blur-[80px] opacity-20 pointer-events-none"></div>
+                
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-black uppercase text-white mb-2 tracking-tighter" data-i18n="formTitle">Inscripción Oficial</h2>
+                    <div class="w-20 h-1 bg-amber-500 mx-auto mb-4"></div>
+                    <p class="text-slate-400" data-i18n="formSubtitle">Rellena el formulario de la Fase Local.</p>
+                </div>
 
-  return (
-    <button 
-      onClick={disabled ? null : onClick}
-      className={`relative group p-6 rounded-sm border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all text-left flex flex-col items-center justify-center gap-4 h-40 ${disabled ? 'opacity-40 cursor-not-allowed grayscale' : 'cursor-pointer hover:bg-slate-800 hover:border-amber-500/50 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)]'}`}
-    >
-      <span className="text-5xl filter drop-shadow-lg transform group-hover:scale-110 transition-transform duration-300">{flag}</span>
-      <div className="text-center w-full">
-        <h3 className="font-bold text-white uppercase tracking-wider mb-2 text-sm md:text-base">{name}</h3>
-        <span className={`block w-full text-[10px] font-bold uppercase px-2 py-1 rounded border ${statusColors[colorKey]}`}>
-          {status}
-        </span>
-      </div>
-    </button>
-  );
-};
+                <form class="space-y-10">
+                    <div class="grid md:grid-cols-2 gap-8 p-6 bg-slate-900/50 border border-white/5 rounded-sm">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-amber-500 mb-2 tracking-wider" data-i18n="lblSede">Sede Seleccionada</label>
+                            <select id="sede-select" class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                                <option value="" disabled selected data-i18n="phSede">Elige tu sede</option>
+                                <option value="España" data-i18n="countrySpain">España</option>
+                                <option value="México" data-i18n="countryMexico">México</option>
+                                <option value="Italia" data-i18n="countryItaly">Italia</option>
+                                <option value="Portugal" data-i18n="countryPortugal">Portugal</option>
+                                <option value="UK">UK</option>
+                                <option value="Costa Rica">Costa Rica</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-amber-500 mb-2 tracking-wider" data-i18n="lblCat">Categoría</label>
+                            <select class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                                <option value="" disabled selected data-i18n="phCat">Selecciona nivel</option>
+                                <optgroup label="Masculina" data-i18n-group="Masculina">
+                                    <option>1ª Masculina</option><option>2ª Masculina</option><option>3ª Masculina</option><option>4ª Masculina</option>
+                                </optgroup>
+                                <optgroup label="Femenina" data-i18n-group="Femenina">
+                                    <option>2ª Femenina</option><option>3ª Femenina</option><option>4ª Femenina</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
 
-export default App;
+                    <!-- Datos Jugadores -->
+                    <div class="border-t border-white/10 pt-8">
+                        <h3 class="text-xl font-black text-white mb-6 uppercase" data-i18n="p1Title">Datos Jugador 1</h3>
+                        <div class="grid md:grid-cols-2 gap-5">
+                            <input type="text" data-i18n-ph="phName" placeholder="Nombre y Apellidos" class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                            <input type="email" placeholder="Email" class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="border-t border-white/10 pt-8">
+                        <h3 class="text-xl font-black text-white mb-6 uppercase" data-i18n="p2Title">Datos Jugador 2</h3>
+                        <div class="grid md:grid-cols-2 gap-5">
+                            <input type="text" data-i18n-ph="phName" placeholder="Nombre y Apellidos" class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                            <input type="email" placeholder="Email" class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-sm text-slate-400 p-6 bg-slate-900/30 rounded-sm">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" class="mt-1 accent-amber-500 w-4 h-4">
+                            <span>
+                                <span data-i18n="terms1">Acepto la</span> 
+                                <span class="text-amber-500 underline" data-i18n="terms2">Normativa y Política de Privacidad</span>.
+                            </span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="w-full bg-amber-500 hover:bg-white text-slate-950 font-black uppercase text-xl py-5 rounded-sm transition-all shadow-[0_4px_20px_rgba(245,158,11,0.4)] tracking-widest">
+                        <span data-i18n="btnSubmit">Confirmar Inscripción</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-white/10 text-center md:text-left">
+        <div class="container mx-auto px-4">
+            <div class="font-black text-3xl uppercase tracking-tighter mb-4 text-white">World Padel <span class="text-amber-500">Nations Cup</span></div>
+            <p class="text-slate-500 text-sm">© 2026 World Padel Nations Cup. Road to Madrid.</p>
+        </div>
+    </footer>
+
+    <!-- LOGICA (TRADUCCIÓN + FUNCIONALIDAD) -->
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // --- SISTEMA DE TRADUCCIÓN ---
+        const translations = {
+            es: {
+                navBtn: "Inscríbete",
+                heroBadge: "Inscripciones Abiertas",
+                heroText1: "Compite en tu club. Clasifica para tu selección.",
+                heroText2: "Representa a tu país en el",
+                heroTextHighlight: "Mundial Amateur",
+                heroCta: "Selecciona tu país",
+                countdownLabel: "Cuenta atrás Final",
+                daysLabel: "DÍAS",
+                
+                timelineTitle1: "El Camino a la",
+                timelineTitle2: "Gloria",
+                timelineSubtitle: "Un proceso de ascenso desde tu club local hasta la cima del mundo.",
+                
+                step1Title: "Fase Local",
+                step1Desc: "Torneos en 8 sedes internacionales. Abierto a cualquier pareja amateur.",
+                step1List1: "4 Categorías Masculinas",
+                step1List2: "3 Categorías Femeninas",
+
+                step2Title: "National Selection",
+                step2Desc: "Los ganadores locales se clasifican. Las",
+                step2DescBold: "3 mejores parejas",
+                step2DescEnd: "forman la Selección.",
+                step2Award: "Premio: Representar a tu país",
+
+                step3Title: "The World Final",
+                step3Desc: "Madrid, 18-20 Mayo. Enfrentamiento por selecciones.",
+                step3Badge: "Gran Final Mundial",
+
+                madridTitle1: "Destino",
+                madridTitle2: "Madrid",
+                madridSubtitle: "CAPITAL MUNDIAL DEL PÁDEL",
+
+                xpTitle: "Experiencia de",
+                xpTitle2: "Élite",
+                xp1Title: "Welcome Pack Oficial",
+                xp1Desc: "Equipación completa de selección nacional.",
+                xp2Title: "Hospitality & Networking",
+                xp2Desc: "Cóctel de bienvenida, sorteo y ambiente PRO.",
+                xp3Title: "Feria Andaluza Experience",
+                xp3Desc: "Networking multicultural único en caseta de feria.",
+
+                countryTitle1: "Representa a tu",
+                countryTitle2: "Bandera",
+                countrySubtitle1: "No juegas solo por un trofeo.",
+                countrySubtitle2: "Juegas por tus colores.",
+
+                formTitle: "Inscripción Oficial",
+                formSubtitle: "Rellena el formulario de la Fase Local.",
+                lblSede: "Sede Seleccionada",
+                phSede: "Elige tu sede",
+                lblCat: "Categoría",
+                phCat: "Selecciona nivel",
+                p1Title: "Datos Jugador 1",
+                p2Title: "Datos Jugador 2",
+                phName: "Nombre y Apellidos",
+                terms1: "Acepto la",
+                terms2: "Normativa y Política de Privacidad",
+                btnSubmit: "Confirmar Inscripción",
+                
+                // Nombres de países
+                countrySpain: "España",
+                countryMexico: "México",
+                countryItaly: "Italia",
+                countryPortugal: "Portugal",
+                countryUK: "UK",
+                countryDubai: "Dubai",
+                countryIndonesia: "Indonesia",
+                countryCostaRica: "Costa Rica",
+
+                // Estados
+                statusOpen: "Abierta",
+                statusFew: "Pocas Plazas",
+                statusSoldOut: "Sold Out",
+                statusSoon: "Próximamente"
+            },
+            en: {
+                navBtn: "Register Now",
+                heroBadge: "Registration Open",
+                heroText1: "Compete in your club. Qualify for your team.",
+                heroText2: "Represent your country in the",
+                heroTextHighlight: "Amateur World Cup",
+                heroCta: "Select your country",
+                countdownLabel: "Countdown to Final",
+                daysLabel: "DAYS",
+                
+                timelineTitle1: "Road to",
+                timelineTitle2: "Glory",
+                timelineSubtitle: "An ascent process from your local club to the top of the world.",
+                
+                step1Title: "Local Phase",
+                step1Desc: "Tournaments in 8 international venues. Open to any amateur pair.",
+                step1List1: "4 Men's Categories",
+                step1List2: "3 Women's Categories",
+
+                step2Title: "National Selection",
+                step2Desc: "Local winners qualify. The",
+                step2DescBold: "top 3 pairs",
+                step2DescEnd: "make up the National Team.",
+                step2Award: "Prize: Represent your country",
+
+                step3Title: "The World Final",
+                step3Desc: "Madrid, May 18-20. National team showdowns.",
+                step3Badge: "World Grand Final",
+
+                madridTitle1: "Destination",
+                madridTitle2: "Madrid",
+                madridSubtitle: "WORLD PADEL CAPITAL",
+
+                xpTitle: "Elite",
+                xpTitle2: "Experience",
+                xp1Title: "Official Welcome Pack",
+                xp1Desc: "Full national team kit included.",
+                xp2Title: "Hospitality & Networking",
+                xp2Desc: "Welcome cocktail, draw, and PRO atmosphere.",
+                xp3Title: "Feria Andaluza Experience",
+                xp3Desc: "Unique multicultural networking at a real fair booth.",
+
+                countryTitle1: "Represent your",
+                countryTitle2: "Flag",
+                countrySubtitle1: "You don't just play for a trophy.",
+                countrySubtitle2: "You play for your colors.",
+
+                formTitle: "Official Registration",
+                formSubtitle: "Fill out the form for the Local Phase.",
+                lblSede: "Selected Venue",
+                phSede: "Choose your venue",
+                lblCat: "Category",
+                phCat: "Select level",
+                p1Title: "Player 1 Details",
+                p2Title: "Player 2 Details",
+                phName: "Full Name",
+                terms1: "I accept the",
+                terms2: "Regulations and Privacy Policy",
+                btnSubmit: "Confirm Registration",
+
+                countrySpain: "Spain",
+                countryMexico: "Mexico",
+                countryItaly: "Italy",
+                countryPortugal: "Portugal",
+                countryUK: "UK",
+                countryDubai: "Dubai",
+                countryIndonesia: "Indonesia",
+                countryCostaRica: "Costa Rica",
+
+                statusOpen: "Open",
+                statusFew: "Last Spots",
+                statusSoldOut: "Sold Out",
+                statusSoon: "Coming Soon"
+            }
+        };
+
+        // Estado actual
+        let currentLang = localStorage.getItem('wpnc_lang') || 'es';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('wpnc_lang', lang);
+            
+            // Actualizar botones UI
+            const btnEs = document.getElementById('btn-es');
+            const btnEn = document.getElementById('btn-en');
+            if(lang === 'es') {
+                btnEs.className = "lang-active transition-all pb-1";
+                btnEn.className = "lang-inactive transition-all pb-1";
+            } else {
+                btnEs.className = "lang-inactive transition-all pb-1";
+                btnEn.className = "lang-active transition-all pb-1";
+            }
+
+            // Actualizar textos simples
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            // Actualizar Placeholders
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if(translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+
+            // Actualizar Optgroups (Truco para Masc/Fem)
+            document.querySelectorAll('optgroup').forEach(el => {
+               if(el.label === "Masculina" || el.label === "Male") el.label = lang === 'es' ? "Masculina" : "Male";
+               if(el.label === "Femenina" || el.label === "Female") el.label = lang === 'es' ? "Femenina" : "Female";
+            });
+
+            // Regenerar Banderas
+            renderCountries();
+        }
+
+        // --- LÓGICA DE PAÍSES ---
+        function renderCountries() {
+            const grid = document.getElementById('country-grid');
+            grid.innerHTML = ''; // Limpiar
+            
+            const countriesData = [
+                { id: "countrySpain", flag: "🇪🇸", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
+                { id: "countryMexico", flag: "🇲🇽", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
+                { id: "countryItaly", flag: "🇮🇹", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
+                { id: "countryPortugal", flag: "🇵🇹", statusKey: "statusFew", color: "text-amber-400 border-amber-400/20 bg-amber-400/5" },
+                { id: "countryUK", flag: "🇬🇧", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
+                { id: "countryDubai", flag: "🇦🇪", statusKey: "statusSoldOut", color: "text-red-400 border-red-400/20 bg-red-400/5", disabled: true },
+                { id: "countryIndonesia", flag: "🇮🇩", statusKey: "statusSoon", color: "text-slate-400 border-slate-400/20 bg-slate-400/5", disabled: true },
+                { id: "countryCostaRica", flag: "🇨🇷", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" }
+            ];
+
+            countriesData.forEach(c => {
+                const btn = document.createElement('button');
+                const isDis = c.disabled ? 'opacity-40 cursor-not-allowed grayscale' : 'cursor-pointer hover:bg-slate-800 hover:border-amber-500/50 hover:-translate-y-1';
+                btn.className = `relative group p-6 rounded-sm border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all text-left flex flex-col items-center justify-center gap-4 h-40 ${isDis}`;
+                
+                // Traducir nombre y estado
+                const name = translations[currentLang][c.id];
+                const status = translations[currentLang][c.statusKey];
+
+                if(!c.disabled) {
+                    btn.onclick = () => {
+                        document.getElementById('sede-select').value = name; // Usamos el nombre traducido
+                        document.getElementById('inscripcion').scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+
+                btn.innerHTML = `
+                    <span class="text-5xl filter drop-shadow-lg transform group-hover:scale-110 transition-transform duration-300">${c.flag}</span>
+                    <div class="text-center w-full">
+                        <h3 class="font-bold text-white uppercase tracking-wider mb-2 text-sm md:text-base">${name}</h3>
+                        <span class="block w-full text-[10px] font-bold uppercase px-2 py-1 rounded border ${c.color}">${status}</span>
+                    </div>
+                `;
+                grid.appendChild(btn);
+            });
+        }
+
+        // Cuenta Atrás
+        const targetDate = new Date('2026-05-18T00:00:00').getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const label = translations[currentLang].daysLabel;
+            document.getElementById("countdown").innerText = (days > 0 ? days : 0) + " " + label;
+        }, 1000);
+
+        // Inicializar
+        setLanguage(currentLang);
+
+    </script>
+</body>
+</html>
