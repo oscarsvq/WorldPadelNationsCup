@@ -17,9 +17,8 @@
                         slate: { 950: '#020617' },
                         amber: { 500: '#f59e0b', 400: '#fbbf24', 600: '#d97706' }
                     },
-                    backgroundImage: {
-                        'barcelona': "url('https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=2070&auto=format&fit=crop')",
-                        'padel-court': "url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2070&auto=format&fit=crop')"
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
@@ -30,17 +29,25 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
         ::selection { background-color: #f59e0b; color: black; }
-        body { background-color: #020617; color: white; }
+        body { background-color: #020617; color: white; font-family: 'Inter', sans-serif; }
+        
         .lang-active { color: #f59e0b; font-weight: 900; border-bottom: 2px solid #f59e0b; }
         .lang-inactive { color: #94a3b8; font-weight: 500; }
         .lang-inactive:hover { color: white; }
+
+        /* Gradiente para el video en móvil para mejorar lectura */
+        .video-overlay {
+            background: linear-gradient(to top, #020617 10%, rgba(2,6,23,0.7) 50%, rgba(2,6,23,0.4) 100%);
+        }
     </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden">
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-white/10">
+    <nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <!-- Logo -->
@@ -51,53 +58,81 @@
                 </div>
             </div>
             
-            <div class="flex items-center gap-6">
+            <div class="flex items-center gap-4 md:gap-6">
+                <!-- WhatsApp Button (Desktop & Mobile Icon) -->
+                <a href="https://wa.me/34660892503" target="_blank" class="flex items-center gap-2 text-white hover:text-green-400 transition-colors group">
+                    <div class="p-2 bg-white/10 rounded-full group-hover:bg-green-500/20 transition-colors">
+                        <i data-lucide="message-circle" class="w-5 h-5 text-green-400"></i>
+                    </div>
+                    <span class="hidden md:block font-bold text-sm uppercase tracking-wider">Contacta</span>
+                </a>
+
                 <!-- Language Switcher -->
-                <div class="flex items-center gap-3 text-sm tracking-widest">
+                <div class="flex items-center gap-2 text-xs md:text-sm tracking-widest border-l border-white/10 pl-4 md:pl-6">
                     <button onclick="setLanguage('es')" id="btn-es" class="lang-active transition-all pb-1">ES</button>
                     <span class="text-slate-600">|</span>
                     <button onclick="setLanguage('en')" id="btn-en" class="lang-inactive transition-all pb-1">EN</button>
                 </div>
 
                 <button onclick="document.getElementById('inscripcion').scrollIntoView({behavior: 'smooth'})" 
-                    class="bg-amber-500 hover:bg-white hover:text-black text-slate-950 font-black uppercase tracking-wide px-4 md:px-6 py-2 rounded-sm transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.4)] text-xs md:text-base">
+                    class="bg-amber-500 hover:bg-white hover:text-black text-slate-950 font-black uppercase tracking-wide px-3 py-2 md:px-6 md:py-2 rounded-sm transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.4)] text-[10px] md:text-sm">
                     <span data-i18n="navBtn">Inscríbete</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
-        <!-- Background: Padel Court / Barcelona Mix -->
-        <div class="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1626248316315-01931551152b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
-        <div class="absolute inset-0 z-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/40"></div>
+    <!-- HERO SECTION CON VIDEO -->
+    <header class="relative min-h-[100svh] flex items-center justify-center pt-20 overflow-hidden">
         
-        <div class="relative z-10 container mx-auto px-4 text-center mt-10">
-            <div class="inline-flex items-center gap-2 mb-6 px-4 py-1 border border-amber-500/50 rounded-full bg-slate-900/50 backdrop-blur text-amber-400 text-xs md:text-sm font-bold tracking-widest uppercase animate-pulse">
-                <span class="w-2 h-2 rounded-full bg-red-500"></span> <span data-i18n="heroBadge">Inscripciones Abiertas 2026</span>
+        <!-- Video Background -->
+        <div class="absolute inset-0 z-0">
+            <!-- Poster es la imagen que carga antes del video para que no se vea negro -->
+            <video 
+                autoplay 
+                muted 
+                loop 
+                playsinline 
+                poster="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2070&auto=format&fit=crop"
+                class="absolute inset-0 w-full h-full object-cover opacity-50"
+            >
+                <!-- Video de stock de Padel de ejemplo -->
+                <source src="https://videos.pexels.com/video-files/5745136/5745136-hd_1920_1080_25fps.mp4" type="video/mp4">
+                Tu navegador no soporta video.
+            </video>
+            <!-- Overlay Gradient moderno -->
+            <div class="absolute inset-0 video-overlay z-10"></div>
+        </div>
+        
+        <div class="relative z-20 container mx-auto px-4 text-center mt-10">
+            <div class="inline-flex items-center gap-2 mb-8 px-5 py-2 border border-amber-500/30 rounded-full bg-slate-950/40 backdrop-blur-md text-amber-400 text-xs md:text-sm font-bold tracking-widest uppercase animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                </span>
+                <span data-i18n="heroBadge">Inscripciones Abiertas 2026</span>
             </div>
             
             <h1 class="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] drop-shadow-2xl">
                 Road to <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-600">Barcelona</span>
             </h1>
             
-            <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 font-light leading-relaxed">
+            <p class="text-lg md:text-2xl text-slate-200 max-w-3xl mx-auto mb-12 font-medium leading-relaxed text-shadow-sm">
                 <span data-i18n="heroText1">Compite en tu club. Clasifica para tu selección.</span><br class="hidden md:block"/>
                 <span data-i18n="heroText2">Vive el Master Final en el</span> <strong class="text-white border-b-2 border-amber-500" data-i18n="heroTextHighlight">Mundial Amateur</strong>.
             </p>
             
             <div class="flex flex-col md:flex-row gap-6 justify-center items-center mb-16">
                 <button onclick="document.getElementById('paises').scrollIntoView({behavior: 'smooth'})"
-                   class="group w-full md:w-auto bg-amber-500 text-slate-950 px-10 py-4 font-black uppercase tracking-widest hover:bg-white transition-all flex items-center justify-center gap-3 text-lg rounded-sm shadow-[0_0_30px_rgba(245,158,11,0.3)]">
+                   class="group w-full md:w-auto bg-amber-500 text-slate-950 px-10 py-5 font-black uppercase tracking-widest hover:bg-white transition-all flex items-center justify-center gap-3 text-lg rounded-sm shadow-[0_0_40px_rgba(245,158,11,0.5)] transform hover:-translate-y-1">
                   <span data-i18n="heroCta">Selecciona tu país</span>
                   <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                 </button>
                 
-                <div class="flex items-center gap-4 bg-black/60 border border-white/20 px-8 py-3 rounded-lg backdrop-blur-md">
+                <div class="flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-lg backdrop-blur-md hover:bg-white/10 transition-colors cursor-default">
                     <div class="text-right">
-                        <span class="block text-[10px] text-slate-400 uppercase tracking-widest mb-1" data-i18n="countdownLabel">Cuenta atrás Master Final</span>
-                        <span id="countdown" class="block text-3xl font-mono font-bold text-white tracking-widest">0 DÍAS</span>
+                        <span class="block text-[10px] text-slate-300 uppercase tracking-widest mb-1" data-i18n="countdownLabel">Cuenta atrás Master Final</span>
+                        <span id="countdown" class="block text-3xl font-mono font-bold text-white tracking-widest tabular-nums">0 DÍAS</span>
                     </div>
                 </div>
             </div>
@@ -122,7 +157,7 @@
                     <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">01</div>
                     <h3 class="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10" data-i18n="step1Title">Fase Local</h3>
                     <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step1Desc">
-                        Torneos en 8 sedes. Partido completo + Super Tie Break (3er set).
+                        Torneos en 8 sedes internacionales. Partido completo + Super Tie Break (3er set).
                     </p>
                     <div class="bg-black/40 p-4 rounded border-l-2 border-amber-500">
                         <ul class="text-xs text-slate-500 space-y-1">
@@ -322,7 +357,7 @@
         const translations = {
             es: {
                 navBtn: "Inscríbete",
-                heroBadge: "Inscripciones Abiertas",
+                heroBadge: "Inscripciones Abiertas 2026",
                 heroText1: "Compite en tu club. Clasifica para tu selección.",
                 heroText2: "Vive el Master Final en el",
                 heroTextHighlight: "Mundial Amateur",
@@ -400,7 +435,7 @@
             },
             en: {
                 navBtn: "Register Now",
-                heroBadge: "Registration Open",
+                heroBadge: "Registration Open 2026",
                 heroText1: "Compete in your club. Qualify for your team.",
                 heroText2: "Live the Master Final at the",
                 heroTextHighlight: "Amateur World Cup",
@@ -520,35 +555,35 @@
             renderCountries();
         }
 
-        // --- LÓGICA DE PAÍSES ---
+        // --- LÓGICA DE PAÍSES ACTUALIZADA (ALL OPEN) ---
         function renderCountries() {
             const grid = document.getElementById('country-grid');
             grid.innerHTML = ''; 
             
+            // TODOS los países con status "statusOpen" y color VERDE (emerald)
             const countriesData = [
                 { id: "countrySpain", flag: "🇪🇸", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
                 { id: "countryMexico", flag: "🇲🇽", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
                 { id: "countryItaly", flag: "🇮🇹", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
-                { id: "countryPortugal", flag: "🇵🇹", statusKey: "statusFew", color: "text-amber-400 border-amber-400/20 bg-amber-400/5" },
+                { id: "countryPortugal", flag: "🇵🇹", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
                 { id: "countryUK", flag: "🇬🇧", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
-                { id: "countryDubai", flag: "🇦🇪", statusKey: "statusSoldOut", color: "text-red-400 border-red-400/20 bg-red-400/5", disabled: true },
-                { id: "countryIndonesia", flag: "🇮🇩", statusKey: "statusSoon", color: "text-slate-400 border-slate-400/20 bg-slate-400/5", disabled: true },
+                { id: "countryDubai", flag: "🇦🇪", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" }, // Ahora abierto
+                { id: "countryIndonesia", flag: "🇮🇩", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" }, // Ahora abierto
                 { id: "countryCostaRica", flag: "🇨🇷", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" }
             ];
 
             countriesData.forEach(c => {
                 const btn = document.createElement('button');
-                const isDis = c.disabled ? 'opacity-40 cursor-not-allowed grayscale' : 'cursor-pointer hover:bg-slate-800 hover:border-amber-500/50 hover:-translate-y-1';
+                // Quitamos la lógica de disabled, ahora todos son clickables
+                const isDis = 'cursor-pointer hover:bg-slate-800 hover:border-amber-500/50 hover:-translate-y-1';
                 btn.className = `relative group p-6 rounded-sm border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all text-left flex flex-col items-center justify-center gap-4 h-40 ${isDis}`;
                 
                 const name = translations[currentLang][c.id];
                 const status = translations[currentLang][c.statusKey];
 
-                if(!c.disabled) {
-                    btn.onclick = () => {
-                        document.getElementById('sede-select').value = name;
-                        document.getElementById('inscripcion').scrollIntoView({ behavior: 'smooth' });
-                    }
+                btn.onclick = () => {
+                    document.getElementById('sede-select').value = name;
+                    document.getElementById('inscripcion').scrollIntoView({ behavior: 'smooth' });
                 }
 
                 btn.innerHTML = `
