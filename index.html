@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Padel Nations Cup - Road to Madrid</title>
+    <title>World Padel Nations Cup - Road to Barcelona</title>
     
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,11 @@
                 extend: {
                     colors: {
                         slate: { 950: '#020617' },
-                        amber: { 500: '#f59e0b', 400: '#fbbf24' }
+                        amber: { 500: '#f59e0b', 400: '#fbbf24', 600: '#d97706' }
+                    },
+                    backgroundImage: {
+                        'barcelona': "url('https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=2070&auto=format&fit=crop')",
+                        'padel-court': "url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2070&auto=format&fit=crop')"
                     }
                 }
             }
@@ -65,21 +69,22 @@
 
     <!-- HERO SECTION -->
     <header class="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
-        <div class="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay"></div>
-        <div class="absolute inset-0 z-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-900/40"></div>
+        <!-- Background: Padel Court / Barcelona Mix -->
+        <div class="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1626248316315-01931551152b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
+        <div class="absolute inset-0 z-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/40"></div>
         
         <div class="relative z-10 container mx-auto px-4 text-center mt-10">
             <div class="inline-flex items-center gap-2 mb-6 px-4 py-1 border border-amber-500/50 rounded-full bg-slate-900/50 backdrop-blur text-amber-400 text-xs md:text-sm font-bold tracking-widest uppercase animate-pulse">
-                <span class="w-2 h-2 rounded-full bg-red-500"></span> <span data-i18n="heroBadge">Inscripciones Abiertas</span>
+                <span class="w-2 h-2 rounded-full bg-red-500"></span> <span data-i18n="heroBadge">Inscripciones Abiertas 2026</span>
             </div>
             
             <h1 class="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] drop-shadow-2xl">
-                Road to <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-600">Madrid</span>
+                Road to <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-600">Barcelona</span>
             </h1>
             
             <p class="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto mb-10 font-light leading-relaxed">
                 <span data-i18n="heroText1">Compite en tu club. Clasifica para tu selección.</span><br class="hidden md:block"/>
-                <span data-i18n="heroText2">Representa a tu país en el</span> <strong class="text-white border-b-2 border-amber-500" data-i18n="heroTextHighlight">Mundial Amateur</strong>.
+                <span data-i18n="heroText2">Vive el Master Final en el</span> <strong class="text-white border-b-2 border-amber-500" data-i18n="heroTextHighlight">Mundial Amateur</strong>.
             </p>
             
             <div class="flex flex-col md:flex-row gap-6 justify-center items-center mb-16">
@@ -91,7 +96,7 @@
                 
                 <div class="flex items-center gap-4 bg-black/60 border border-white/20 px-8 py-3 rounded-lg backdrop-blur-md">
                     <div class="text-right">
-                        <span class="block text-[10px] text-slate-400 uppercase tracking-widest mb-1" data-i18n="countdownLabel">Cuenta atrás Final</span>
+                        <span class="block text-[10px] text-slate-400 uppercase tracking-widest mb-1" data-i18n="countdownLabel">Cuenta atrás Master Final</span>
                         <span id="countdown" class="block text-3xl font-mono font-bold text-white tracking-widest">0 DÍAS</span>
                     </div>
                 </div>
@@ -108,7 +113,7 @@
                 <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-4 text-white">
                     <span data-i18n="timelineTitle1">El Camino a la</span> <span class="text-amber-500" data-i18n="timelineTitle2">Gloria</span>
                 </h2>
-                <p class="text-slate-400 max-w-2xl mx-auto text-lg" data-i18n="timelineSubtitle">Un proceso de ascenso desde tu club local hasta la cima del mundo.</p>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg" data-i18n="timelineSubtitle">Un proceso de ascenso desde tu club local hasta el Master Final de Barcelona.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 relative">
@@ -116,11 +121,13 @@
                 <div class="group relative bg-slate-900 p-8 border border-white/10 hover:border-amber-500/50 transition-all rounded-sm hover:-translate-y-2 duration-300">
                     <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">01</div>
                     <h3 class="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10" data-i18n="step1Title">Fase Local</h3>
-                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step1Desc">Torneos en 8 sedes internacionales. Abierto a cualquier pareja amateur.</p>
+                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step1Desc">
+                        Torneos en 8 sedes. Partido completo + Super Tie Break (3er set).
+                    </p>
                     <div class="bg-black/40 p-4 rounded border-l-2 border-amber-500">
                         <ul class="text-xs text-slate-500 space-y-1">
-                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3 h-3 text-amber-500"></i> <span data-i18n="step1List1">4 Categorías Masculinas</span></li>
-                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3 h-3 text-amber-500"></i> <span data-i18n="step1List2">3 Categorías Femeninas</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3 h-3 text-amber-500"></i> <span data-i18n="goldenPoint">Juego con Bola de Oro</span></li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3 h-3 text-amber-500"></i> <span data-i18n="step1List1">4 Cat. Masculinas / 3 Femeninas</span></li>
                         </ul>
                     </div>
                 </div>
@@ -130,11 +137,11 @@
                     <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">02</div>
                     <h3 class="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10" data-i18n="step2Title">National Selection</h3>
                     <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10">
-                        <span data-i18n="step2Desc">Los ganadores locales se clasifican. Las</span> <strong class="text-white" data-i18n="step2DescBold">3 mejores parejas</strong> <span data-i18n="step2DescEnd">forman la Selección.</span>
+                        <span data-i18n="step2Desc">Las</span> <strong class="text-white" data-i18n="step2DescBold">2 Parejas Finalistas</strong> <span data-i18n="step2DescEnd">de cada categoría se clasifican para la Selección Nacional.</span>
                     </p>
                     <div class="bg-amber-500/10 p-4 rounded border border-amber-500/20 flex items-center gap-3">
                         <i data-lucide="trophy" class="w-8 h-8 text-amber-500"></i>
-                        <span class="text-xs font-bold text-amber-200 uppercase" data-i18n="step2Award">Premio: Representar a tu país</span>
+                        <span class="text-xs font-bold text-amber-200 uppercase" data-i18n="step2Award">Objetivo: Barcelona 2026</span>
                     </div>
                 </div>
 
@@ -142,57 +149,60 @@
                 <div class="group relative bg-gradient-to-b from-slate-900 to-amber-900/20 p-8 border border-amber-500/40 hover:border-amber-500 transition-all rounded-sm hover:-translate-y-2 duration-300 mt-8 md:mt-0 shadow-[0_0_40px_rgba(245,158,11,0.1)]">
                     <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors">03</div>
                     <h3 class="text-2xl font-black uppercase mb-4 text-white relative z-10" data-i18n="step3Title">The World Final</h3>
-                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step3Desc">Madrid, 18-20 Mayo. Enfrentamiento por selecciones.</p>
-                    <div class="inline-block bg-amber-500 text-black text-xs font-black px-4 py-2 uppercase rounded-sm tracking-wider" data-i18n="step3Badge">Gran Final Mundial</div>
+                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step3Desc">
+                        Barcelona, 7-13 Dic. Fase Grupos (min 2 partidos), Semis y Final.
+                    </p>
+                    <div class="inline-block bg-amber-500 text-black text-xs font-black px-4 py-2 uppercase rounded-sm tracking-wider" data-i18n="step3Badge">Coincide con Master Final</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- MADRID EXPERIENCE -->
+    <!-- BARCELONA EXPERIENCE -->
     <section class="py-0 grid md:grid-cols-2 bg-slate-900 border-y border-white/10">
         <div class="relative min-h-[500px] md:min-h-full group overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1543783207-925246e62169?q=80&w=2070&auto=format&fit=crop" 
-                 alt="Madrid" 
+            <!-- Imagen Barcelona -->
+            <img src="https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=2070&auto=format&fit=crop" 
+                 alt="Barcelona" 
                  class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000"/>
             <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-transparent to-transparent md:bg-gradient-to-t"></div>
             <div class="absolute bottom-12 left-8 md:left-12">
                 <h3 class="text-5xl md:text-7xl font-black uppercase text-white mb-2 leading-none">
-                    <span data-i18n="madridTitle1">Destino</span><br/><span data-i18n="madridTitle2">Madrid</span>
+                    <span data-i18n="madridTitle1">Destino</span><br/><span data-i18n="madridTitle2">Barcelona</span>
                 </h3>
-                <p class="text-amber-500 font-bold tracking-[0.5em] text-sm md:text-base border-t border-amber-500 pt-4 mt-4 inline-block" data-i18n="madridSubtitle">CAPITAL MUNDIAL DEL PÁDEL</p>
+                <p class="text-amber-500 font-bold tracking-[0.5em] text-sm md:text-base border-t border-amber-500 pt-4 mt-4 inline-block" data-i18n="madridSubtitle">EPICENTRO MUNDIAL DEL PÁDEL</p>
             </div>
         </div>
         <div class="p-12 md:p-24 flex flex-col justify-center bg-slate-950">
             <h3 class="text-3xl font-black uppercase mb-12 text-white">
-                <span data-i18n="xpTitle">Experiencia de</span> <span class="text-amber-500" data-i18n="xpTitle2">Élite</span>
+                <span data-i18n="xpTitle">Experiencia</span> <span class="text-amber-500" data-i18n="xpTitle2">Master Final</span>
             </h3>
             <ul class="space-y-10">
                 <li class="flex items-start gap-6 group">
                     <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
-                        <i data-lucide="shirt" class="w-6 h-6"></i>
+                        <i data-lucide="crown" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp1Title">Welcome Pack Oficial</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp1Desc">Equipación completa de selección nacional.</p>
+                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp1Title">Conexión con la Élite</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp1Desc">Vive el Master Final de Premier Padel desde dentro.</p>
                     </div>
                 </li>
                 <li class="flex items-start gap-6 group">
                     <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
-                        <i data-lucide="star" class="w-6 h-6"></i>
+                        <i data-lucide="gem" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp2Title">Hospitality & Networking</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp2Desc">Cóctel de bienvenida, sorteo y ambiente PRO.</p>
+                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp2Title">VIP Hospitality</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp2Desc">Palcos privados, gastronomía premium y el mejor networking del sector.</p>
                     </div>
                 </li>
                 <li class="flex items-start gap-6 group">
                     <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
-                        <i data-lucide="users" class="w-6 h-6"></i>
+                        <i data-lucide="zap" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp3Title">Feria Andaluza Experience</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp3Desc">Networking multicultural único en caseta de feria.</p>
+                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp3Title">Activaciones & Concursos</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp3Desc">Premios, Bola de Oro y sorpresas exclusivas para jugadores.</p>
                     </div>
                 </li>
             </ul>
@@ -223,9 +233,13 @@
                 <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500 blur-[80px] opacity-20 pointer-events-none"></div>
                 
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-black uppercase text-white mb-2 tracking-tighter" data-i18n="formTitle">Inscripción Oficial</h2>
+                    <!-- MOTIVATIONAL HEADER REPLACING "INSCRIPCIÓN OFICIAL" -->
+                    <i data-lucide="quote" class="w-10 h-10 text-amber-500/40 mx-auto mb-4"></i>
+                    <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-4 tracking-tighter leading-tight italic" data-i18n="formTitle">
+                        ¿Te imaginas vestir la indumentaria de tu país, escuchar tu himno nacional y disputar la Final de la World Padel Nations Cup?
+                    </h2>
                     <div class="w-20 h-1 bg-amber-500 mx-auto mb-4"></div>
-                    <p class="text-slate-400" data-i18n="formSubtitle">Rellena el formulario de la Fase Local.</p>
+                    <p class="text-xl md:text-2xl font-bold text-amber-500" data-i18n="formSubtitle">Ahora es posible.</p>
                 </div>
 
                 <form class="space-y-10">
@@ -295,7 +309,7 @@
     <footer class="bg-black py-16 border-t border-white/10 text-center md:text-left">
         <div class="container mx-auto px-4">
             <div class="font-black text-3xl uppercase tracking-tighter mb-4 text-white">World Padel <span class="text-amber-500">Nations Cup</span></div>
-            <p class="text-slate-500 text-sm">© 2026 World Padel Nations Cup. Road to Madrid.</p>
+            <p class="text-slate-500 text-sm">© 2026 World Padel Nations Cup. Road to Barcelona.</p>
         </div>
     </footer>
 
@@ -310,51 +324,53 @@
                 navBtn: "Inscríbete",
                 heroBadge: "Inscripciones Abiertas",
                 heroText1: "Compite en tu club. Clasifica para tu selección.",
-                heroText2: "Representa a tu país en el",
+                heroText2: "Vive el Master Final en el",
                 heroTextHighlight: "Mundial Amateur",
                 heroCta: "Selecciona tu país",
-                countdownLabel: "Cuenta atrás Final",
+                countdownLabel: "Cuenta atrás Master Final",
                 daysLabel: "DÍAS",
                 
                 timelineTitle1: "El Camino a la",
                 timelineTitle2: "Gloria",
-                timelineSubtitle: "Un proceso de ascenso desde tu club local hasta la cima del mundo.",
+                timelineSubtitle: "Un proceso de ascenso desde tu club local hasta el Master Final de Barcelona.",
                 
                 step1Title: "Fase Local",
-                step1Desc: "Torneos en 8 sedes internacionales. Abierto a cualquier pareja amateur.",
-                step1List1: "4 Categorías Masculinas",
-                step1List2: "3 Categorías Femeninas",
+                step1Desc: "Torneos en 8 sedes internacionales. Partido completo + Super Tie Break (3er set).",
+                step1List1: "4 Cat. Masculinas / 3 Femeninas",
+                goldenPoint: "Juego con Bola de Oro",
 
                 step2Title: "National Selection",
-                step2Desc: "Los ganadores locales se clasifican. Las",
-                step2DescBold: "3 mejores parejas",
-                step2DescEnd: "forman la Selección.",
-                step2Award: "Premio: Representar a tu país",
+                step2Desc: "Las",
+                step2DescBold: "2 Parejas Finalistas",
+                step2DescEnd: "de cada categoría se clasifican para la Selección Nacional.",
+                step2Award: "Objetivo: Barcelona 2026",
 
                 step3Title: "The World Final",
-                step3Desc: "Madrid, 18-20 Mayo. Enfrentamiento por selecciones.",
-                step3Badge: "Gran Final Mundial",
+                step3Desc: "Barcelona, 7-13 Dic. Fase Grupos (min 2 partidos), Semis y Final.",
+                step3Badge: "Coincide con Master Final",
 
                 madridTitle1: "Destino",
-                madridTitle2: "Madrid",
-                madridSubtitle: "CAPITAL MUNDIAL DEL PÁDEL",
+                madridTitle2: "Barcelona",
+                madridSubtitle: "EPICENTRO MUNDIAL DEL PÁDEL",
 
-                xpTitle: "Experiencia de",
-                xpTitle2: "Élite",
-                xp1Title: "Welcome Pack Oficial",
-                xp1Desc: "Equipación completa de selección nacional.",
-                xp2Title: "Hospitality & Networking",
-                xp2Desc: "Cóctel de bienvenida, sorteo y ambiente PRO.",
-                xp3Title: "Feria Andaluza Experience",
-                xp3Desc: "Networking multicultural único en caseta de feria.",
+                xpTitle: "Experiencia",
+                xpTitle2: "Master Final",
+                xp1Title: "Conexión con la Élite",
+                xp1Desc: "Vive el Master Final de Premier Padel desde dentro.",
+                xp2Title: "VIP Hospitality",
+                xp2Desc: "Palcos privados, gastronomía premium y el mejor networking del sector.",
+                xp3Title: "Activaciones & Concursos",
+                xp3Desc: "Premios, Bola de Oro y sorpresas exclusivas para jugadores.",
 
                 countryTitle1: "Representa a tu",
                 countryTitle2: "Bandera",
                 countrySubtitle1: "No juegas solo por un trofeo.",
                 countrySubtitle2: "Juegas por tus colores.",
 
-                formTitle: "Inscripción Oficial",
-                formSubtitle: "Rellena el formulario de la Fase Local.",
+                // --- NUEVO HEADER FORMULARIO (ES) ---
+                formTitle: "¿Te imaginas vestir la indumentaria de tu país, escuchar tu himno nacional y disputar la Final de la World Padel Nations Cup?",
+                formSubtitle: "Ahora es posible.",
+                
                 lblSede: "Sede Seleccionada",
                 phSede: "Elige tu sede",
                 lblCat: "Categoría",
@@ -386,51 +402,53 @@
                 navBtn: "Register Now",
                 heroBadge: "Registration Open",
                 heroText1: "Compete in your club. Qualify for your team.",
-                heroText2: "Represent your country in the",
+                heroText2: "Live the Master Final at the",
                 heroTextHighlight: "Amateur World Cup",
                 heroCta: "Select your country",
-                countdownLabel: "Countdown to Final",
+                countdownLabel: "Countdown to Master Final",
                 daysLabel: "DAYS",
                 
                 timelineTitle1: "Road to",
                 timelineTitle2: "Glory",
-                timelineSubtitle: "An ascent process from your local club to the top of the world.",
+                timelineSubtitle: "An ascent process from your local club to the Barcelona Master Final.",
                 
                 step1Title: "Local Phase",
-                step1Desc: "Tournaments in 8 international venues. Open to any amateur pair.",
-                step1List1: "4 Men's Categories",
-                step1List2: "3 Women's Categories",
+                step1Desc: "Tournaments in 8 international venues. Full Match + Super Tie Break (3rd set).",
+                step1List1: "4 Men's / 3 Women's Cats",
+                goldenPoint: "Golden Point Rule",
 
                 step2Title: "National Selection",
-                step2Desc: "Local winners qualify. The",
-                step2DescBold: "top 3 pairs",
-                step2DescEnd: "make up the National Team.",
-                step2Award: "Prize: Represent your country",
+                step2Desc: "The",
+                step2DescBold: "2 Finalist Pairs",
+                step2DescEnd: "of each category qualify for the National Team.",
+                step2Award: "Goal: Barcelona 2026",
 
                 step3Title: "The World Final",
-                step3Desc: "Madrid, May 18-20. National team showdowns.",
-                step3Badge: "World Grand Final",
+                step3Desc: "Barcelona, Dec 7-13. Group Phase (min 2 matches), Semis & Final.",
+                step3Badge: "During Master Final",
 
                 madridTitle1: "Destination",
-                madridTitle2: "Madrid",
+                madridTitle2: "Barcelona",
                 madridSubtitle: "WORLD PADEL CAPITAL",
 
-                xpTitle: "Elite",
+                xpTitle: "Master Final",
                 xpTitle2: "Experience",
-                xp1Title: "Official Welcome Pack",
-                xp1Desc: "Full national team kit included.",
-                xp2Title: "Hospitality & Networking",
-                xp2Desc: "Welcome cocktail, draw, and PRO atmosphere.",
-                xp3Title: "Feria Andaluza Experience",
-                xp3Desc: "Unique multicultural networking at a real fair booth.",
+                xp1Title: "Elite Connection",
+                xp1Desc: "Experience the Premier Padel Master Final from the inside.",
+                xp2Title: "VIP Hospitality",
+                xp2Desc: "Private boxes, premium gastronomy, and top sector networking.",
+                xp3Title: "Activations & Contests",
+                xp3Desc: "Prizes, Golden Point challenges, and exclusive surprises.",
 
                 countryTitle1: "Represent your",
                 countryTitle2: "Flag",
                 countrySubtitle1: "You don't just play for a trophy.",
                 countrySubtitle2: "You play for your colors.",
 
-                formTitle: "Official Registration",
-                formSubtitle: "Fill out the form for the Local Phase.",
+                // --- NUEVO HEADER FORMULARIO (EN) ---
+                formTitle: "Can you imagine wearing your country's kit, hearing your anthem, and playing the World Padel Nations Cup Final?",
+                formSubtitle: "Now it's possible.",
+
                 lblSede: "Selected Venue",
                 phSede: "Choose your venue",
                 lblCat: "Category",
@@ -492,7 +510,7 @@
                 }
             });
 
-            // Actualizar Optgroups (Truco para Masc/Fem)
+            // Actualizar Optgroups
             document.querySelectorAll('optgroup').forEach(el => {
                if(el.label === "Masculina" || el.label === "Male") el.label = lang === 'es' ? "Masculina" : "Male";
                if(el.label === "Femenina" || el.label === "Female") el.label = lang === 'es' ? "Femenina" : "Female";
@@ -505,7 +523,7 @@
         // --- LÓGICA DE PAÍSES ---
         function renderCountries() {
             const grid = document.getElementById('country-grid');
-            grid.innerHTML = ''; // Limpiar
+            grid.innerHTML = ''; 
             
             const countriesData = [
                 { id: "countrySpain", flag: "🇪🇸", statusKey: "statusOpen", color: "text-emerald-400 border-emerald-400/20 bg-emerald-400/5" },
@@ -523,13 +541,12 @@
                 const isDis = c.disabled ? 'opacity-40 cursor-not-allowed grayscale' : 'cursor-pointer hover:bg-slate-800 hover:border-amber-500/50 hover:-translate-y-1';
                 btn.className = `relative group p-6 rounded-sm border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all text-left flex flex-col items-center justify-center gap-4 h-40 ${isDis}`;
                 
-                // Traducir nombre y estado
                 const name = translations[currentLang][c.id];
                 const status = translations[currentLang][c.statusKey];
 
                 if(!c.disabled) {
                     btn.onclick = () => {
-                        document.getElementById('sede-select').value = name; // Usamos el nombre traducido
+                        document.getElementById('sede-select').value = name;
                         document.getElementById('inscripcion').scrollIntoView({ behavior: 'smooth' });
                     }
                 }
@@ -545,8 +562,8 @@
             });
         }
 
-        // Cuenta Atrás
-        const targetDate = new Date('2026-05-18T00:00:00').getTime();
+        // Cuenta Atrás para el 7 de Diciembre de 2026
+        const targetDate = new Date('2026-12-07T00:00:00').getTime();
         setInterval(() => {
             const now = new Date().getTime();
             const distance = targetDate - now;
