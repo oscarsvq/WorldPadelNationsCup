@@ -36,7 +36,7 @@
     </script>
 
     <!-- Iconos Lucide -->
-    <script src=https://raw.githubusercontent.com/oscarsvq/WorldPadelNationsCup/refs/heads/main/padel.png"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
@@ -73,8 +73,10 @@
     <nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <!-- Logo -->
-                <div class="w-10 h-10 bg-gradient-to-tr from-amber-400 to-amber-600 rounded-full flex items-center justify-center font-bold text-slate-900 border-2 border-white shadow-[0_0_15px_rgba(245,158,11,0.5)]">W</div>
+                <!-- Logo Imagen -->
+                <img src="https://raw.githubusercontent.com/oscarsvq/WorldPadelNationsCup/refs/heads/main/padel.png" 
+                     alt="World Padel Nations Cup Logo" 
+                     class="w-12 h-12 object-contain filter drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
                 <div class="leading-none hidden sm:block">
                     <span class="block font-black text-lg tracking-tighter uppercase text-white">World Padel</span>
                     <span class="block font-bold text-sm tracking-widest text-amber-500 uppercase">Nations Cup</span>
@@ -118,11 +120,11 @@
                 muted 
                 loop 
                 playsinline 
-                poster="padel.png&auto=format&fit=crop"
+                poster="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2070&auto=format&fit=crop"
                 class="absolute inset-0 w-full h-full object-cover opacity-60"
             >
                 <!-- URL de Video de Padel (Alta Calidad) -->
-                <source src="padel.mp4" type="video/mp4">
+                <source src="https://videos.pexels.com/video-files/5745136/5745136-hd_1920_1080_25fps.mp4" type="video/mp4">
             </video>
             <!-- Overlay para mejorar legibilidad -->
             <div class="absolute inset-0 video-overlay z-10"></div>
@@ -392,9 +394,14 @@
 
     <!-- FOOTER -->
     <footer class="bg-black py-16 border-t border-white/10 text-center md:text-left">
-        <div class="container mx-auto px-4">
-            <div class="font-black text-3xl uppercase tracking-tighter mb-4 text-white">World Padel <span class="text-amber-500">Nations Cup</span></div>
-            <p class="text-slate-500 text-sm">© 2026 World Padel Nations Cup. Road to Barcelona.</p>
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-6 justify-center md:justify-start">
+            <img src="https://raw.githubusercontent.com/oscarsvq/WorldPadelNationsCup/refs/heads/main/padel.png" 
+                 alt="World Padel Nations Cup Logo" 
+                 class="w-16 h-16 object-contain filter drop-shadow-[0_0_10px_rgba(245,158,11,0.3)]">
+            <div class="text-center md:text-left">
+                <div class="font-black text-3xl uppercase tracking-tighter mb-2 text-white">World Padel <span class="text-amber-500">Nations Cup</span></div>
+                <p class="text-slate-500 text-sm">© 2026 World Padel Nations Cup. Road to Barcelona.</p>
+            </div>
         </div>
     </footer>
 
