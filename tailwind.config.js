@@ -71,9 +71,9 @@ module.exports = {
         'diagonal-lines': 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(232,185,48,0.03) 10px, rgba(232,185,48,0.03) 11px)',
       },
       fontSize: {
-        'display-lg': ['clamp(3.5rem, 8vw, 9rem)', { lineHeight: '0.85', letterSpacing: '-0.04em', fontWeight: '800' }],
-        'display-md': ['clamp(2.5rem, 5vw, 5rem)', { lineHeight: '0.9', letterSpacing: '-0.03em', fontWeight: '800' }],
-        'display-sm': ['clamp(1.5rem, 3vw, 2.5rem)', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '700' }],
+        'display-lg': ['clamp(2.8rem, 10vw, 9rem)', { lineHeight: '0.85', letterSpacing: '-0.04em', fontWeight: '800' }],
+        'display-md': ['clamp(2rem, 6vw, 5rem)', { lineHeight: '0.9', letterSpacing: '-0.03em', fontWeight: '800' }],
+        'display-sm': ['clamp(1.35rem, 3.5vw, 2.5rem)', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '700' }],
       },
     }
   },
