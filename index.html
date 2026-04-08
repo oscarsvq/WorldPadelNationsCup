@@ -24,291 +24,428 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- CSP: Restricts origins for scripts, styles, media, and frames -->
+    <!-- CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; media-src 'self'; connect-src 'self' https://api.emailjs.com">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
-    <!-- Preconnect for Google Fonts (eliminates DNS+TLS latency) -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Google Fonts via <link> (not @import — avoids render-blocking) -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap">
+    <!-- Google Fonts: Syne (display) + Manrope (body) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap">
 
-    <!-- Production CSS (Tailwind build, ~25KB vs ~350KB CDN) -->
+    <!-- Tailwind Build -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="font-sans antialiased overflow-x-hidden">
+<body class="font-body antialiased overflow-x-hidden">
 
     <!-- Skip to content (accessibility) -->
-    <a href="#inscripcion" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-amber-500 focus:text-black focus:px-4 focus:py-2 focus:font-bold focus:rounded">
+    <a href="#inscripcion" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-gold-500 focus:text-dark-950 focus:px-4 focus:py-2 focus:font-bold focus:rounded">
         Saltar al contenido
     </a>
 
-    <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" aria-label="Navegación principal">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <picture>
-                    <source srcset="logo.webp" type="image/webp">
-                    <img src="padel.png" alt="World Padel Nations Cup Logo" width="48" height="48" decoding="async"
-                         class="w-12 h-12 object-contain filter drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
-                </picture>
-                <div class="leading-none hidden sm:block">
-                    <span class="block font-black text-lg tracking-tighter uppercase text-white">World Padel</span>
-                    <span class="block font-bold text-sm tracking-widest text-amber-500 uppercase">Nations Cup</span>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4 md:gap-6">
-                <!-- WhatsApp -->
-                <a href="https://wa.me/34660892503" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white hover:text-green-400 transition-colors group" aria-label="Contactar por WhatsApp">
-                    <div class="p-2 bg-white/10 rounded-full group-hover:bg-green-500/20 transition-colors">
-                        <i data-lucide="message-circle" class="w-5 h-5 text-green-400"></i>
+    <!-- ═══════════════════════════════════════
+         NAVBAR
+    ════════════════════════════════════════ -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" aria-label="Navegación principal">
+        <div class="bg-dark-950/70 backdrop-blur-xl border-b border-white/[0.04]">
+            <div class="max-w-7xl mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <picture>
+                        <source srcset="logo.webp" type="image/webp">
+                        <img src="padel.png" alt="World Padel Nations Cup Logo" width="44" height="44" decoding="async"
+                             class="w-11 h-11 object-contain transition-transform duration-300 group-hover:scale-110">
+                    </picture>
+                    <div class="leading-none hidden sm:block">
+                        <span class="block font-display font-extrabold text-base tracking-tight text-white">WORLD PADEL</span>
+                        <span class="block font-display font-bold text-[11px] tracking-[0.3em] text-gold-500">NATIONS CUP</span>
                     </div>
-                    <span class="hidden md:block font-bold text-sm uppercase tracking-wider">Contacta</span>
                 </a>
 
-                <!-- Language Switcher -->
-                <div class="flex items-center gap-2 text-xs md:text-sm tracking-widest border-l border-white/10 pl-4 md:pl-6" role="group" aria-label="Selector de idioma">
-                    <button type="button" onclick="setLanguage('es')" id="btn-es" class="lang-active transition-all pb-1" aria-label="Español">ES</button>
-                    <span class="text-slate-600" aria-hidden="true">|</span>
-                    <button type="button" onclick="setLanguage('en')" id="btn-en" class="lang-inactive transition-all pb-1" aria-label="English">EN</button>
-                </div>
+                <!-- Nav Right -->
+                <div class="flex items-center gap-3 md:gap-5">
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/34660892503" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center gap-2 text-white/60 hover:text-green-400 transition-colors group"
+                       aria-label="Contactar por WhatsApp">
+                        <div class="p-2 rounded-full border border-white/10 group-hover:border-green-400/30 group-hover:bg-green-400/10 transition-all">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        </div>
+                        <span class="hidden lg:block text-xs font-semibold uppercase tracking-widest">Contacta</span>
+                    </a>
 
-                <button type="button" onclick="document.getElementById('inscripcion').scrollIntoView({behavior: 'smooth'})"
-                    class="bg-amber-500 hover:bg-white hover:text-black text-slate-950 font-black uppercase tracking-wide px-3 py-2 md:px-6 md:py-2 rounded-sm transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.4)] text-[10px] md:text-sm">
-                    <span data-i18n="navBtn">Inscríbete</span>
-                </button>
+                    <!-- Language Switcher -->
+                    <div class="flex items-center gap-2 text-xs tracking-widest border-l border-white/10 pl-3 md:pl-5" role="group" aria-label="Selector de idioma">
+                        <button type="button" onclick="setLanguage('es')" id="btn-es" class="lang-active transition-all pb-0.5 cursor-pointer" aria-label="Español">ES</button>
+                        <span class="text-white/20" aria-hidden="true">/</span>
+                        <button type="button" onclick="setLanguage('en')" id="btn-en" class="lang-inactive transition-all pb-0.5 cursor-pointer" aria-label="English">EN</button>
+                    </div>
+
+                    <!-- CTA -->
+                    <button type="button" onclick="document.getElementById('inscripcion').scrollIntoView({behavior: 'smooth'})"
+                        class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-display font-extrabold uppercase tracking-wider px-4 py-2.5 md:px-7 md:py-3 transition-all duration-200 text-[11px] md:text-xs cursor-pointer hover:shadow-[0_0_30px_rgba(232,185,48,0.35)]">
+                        <span data-i18n="navBtn">Inscríbete</span>
+                    </button>
+                </div>
             </div>
         </div>
+        <!-- Gold accent line -->
+        <div class="h-[1px] bg-gradient-to-r from-transparent via-gold-500/40 to-transparent"></div>
     </nav>
 
-    <!-- HERO SECTION WITH VIDEO BACKGROUND -->
+    <!-- ═══════════════════════════════════════
+         HERO SECTION
+    ════════════════════════════════════════ -->
     <header class="relative min-h-[100svh] flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Video Background -->
         <div class="absolute inset-0 z-0">
-            <video
-                id="bg-video"
-                autoplay
-                muted
-                loop
-                playsinline
-                poster="poster.webp"
-                class="absolute inset-0 w-full h-full object-cover opacity-60"
-            >
+            <video id="bg-video" autoplay muted loop playsinline poster="poster.webp"
+                   class="absolute inset-0 w-full h-full object-cover opacity-50">
                 <source src="padel.mp4" type="video/mp4">
             </video>
             <div class="absolute inset-0 video-overlay z-10"></div>
+            <!-- Geometric overlay -->
+            <div class="absolute inset-0 z-10 pattern-diagonal"></div>
         </div>
 
-        <div class="relative z-20 container mx-auto px-4 text-center mt-10">
+        <!-- Decorative geometric element -->
+        <div class="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gold-500/[0.03] rounded-full blur-[120px] z-10 pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-scarlet-500/[0.04] rounded-full blur-[100px] z-10 pointer-events-none" aria-hidden="true"></div>
+
+        <div class="relative z-20 max-w-7xl mx-auto px-5 md:px-8 text-center mt-8">
             <!-- Badge -->
-            <div class="inline-flex items-center gap-2 mb-8 px-5 py-2 border border-amber-500/30 rounded-full bg-slate-950/60 backdrop-blur-md text-amber-400 text-xs md:text-sm font-bold tracking-widest uppercase animate-fade-in-up">
+            <div class="inline-flex items-center gap-3 mb-10 px-5 py-2.5 border border-gold-500/20 bg-dark-950/60 backdrop-blur-lg text-gold-400 text-[11px] md:text-xs font-bold tracking-[0.25em] uppercase animate-fade-in-up">
                 <span class="relative flex h-2 w-2" aria-hidden="true">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-scarlet-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-scarlet-500"></span>
                 </span>
                 <span data-i18n="heroBadge">Inscripciones Abiertas 2026</span>
             </div>
 
             <!-- Title -->
-            <h1 class="text-5xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] drop-shadow-2xl animate-fade-in-up" style="animation-delay: 0.1s;">
-                Road to <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-600">Barcelona</span>
+            <h1 class="font-display text-display-lg uppercase text-white mb-8 drop-shadow-2xl animate-fade-in-up" style="animation-delay: 0.1s;">
+                Road to<br><span class="text-gradient-gold">Barcelona</span>
             </h1>
 
             <!-- Subtitle -->
-            <p class="text-lg md:text-2xl text-slate-200 max-w-3xl mx-auto mb-12 font-medium leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s;">
-                <span data-i18n="heroText1">Compite en tu club. Clasifica para tu selección.</span><br class="hidden md:block"/>
-                <span data-i18n="heroText2">Vive el Master Final en el</span> <strong class="text-white border-b-2 border-amber-500" data-i18n="heroTextHighlight">Mundial Amateur</strong>.
+            <p class="text-lg md:text-xl lg:text-2xl text-white/70 max-w-3xl mx-auto mb-14 font-light leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s;">
+                <span data-i18n="heroText1">Compite en tu club. Clasifica para tu selección.</span><br class="hidden md:block">
+                <span data-i18n="heroText2">Vive el Master Final en el</span>
+                <strong class="text-white font-semibold border-b border-gold-500/50" data-i18n="heroTextHighlight">Mundial Amateur</strong>.
             </p>
 
             <!-- CTAs -->
-            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-16 animate-fade-in-up" style="animation-delay: 0.3s;">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 animate-fade-in-up" style="animation-delay: 0.3s;">
                 <button type="button" onclick="document.getElementById('paises').scrollIntoView({behavior: 'smooth'})"
-                   class="w-full md:w-auto bg-amber-500 text-slate-950 px-8 py-4 font-black uppercase tracking-widest hover:bg-white transition-all flex items-center justify-center gap-3 text-base md:text-lg rounded-sm shadow-[0_0_40px_rgba(245,158,11,0.5)] transform hover:-translate-y-1">
-                  <span data-i18n="heroCta">Selecciona tu país</span>
-                  <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    class="w-full sm:w-auto bg-gold-500 text-dark-950 px-10 py-4 font-display font-extrabold uppercase tracking-widest hover:bg-gold-400 transition-all flex items-center justify-center gap-3 text-sm cursor-pointer hover:shadow-[0_0_50px_rgba(232,185,48,0.4)] hover:-translate-y-0.5 duration-200">
+                    <span data-i18n="heroCta">Selecciona tu país</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
 
                 <button type="button" onclick="openVideoModal()"
-                    class="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 border border-white/30 bg-white/5 backdrop-blur-md rounded-sm text-white hover:bg-white/20 transition-all font-bold uppercase tracking-widest text-base md:text-lg">
-                    <div class="w-8 h-8 rounded-full bg-white text-slate-950 flex items-center justify-center" aria-hidden="true">
-                        <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
+                    class="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-4 border border-white/15 bg-white/[0.03] backdrop-blur-md text-white hover:bg-white/10 hover:border-white/25 transition-all font-display font-bold uppercase tracking-widest text-sm cursor-pointer duration-200">
+                    <div class="w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center" aria-hidden="true">
+                        <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5 text-gold-400"></i>
                     </div>
                     <span data-i18n="watchTrailer">Ver Vídeo Oficial</span>
                 </button>
             </div>
 
             <!-- Countdown -->
-            <div class="inline-flex items-center gap-4 bg-black/40 border border-white/10 px-8 py-3 rounded-lg backdrop-blur-md animate-fade-in-up" style="animation-delay: 0.4s;">
-                <div class="text-center md:text-right">
-                    <span class="block text-[10px] text-slate-300 uppercase tracking-widest mb-1" data-i18n="countdownLabel">Cuenta atrás Master Final</span>
-                    <span id="countdown" class="block text-2xl md:text-3xl font-mono font-bold text-white tracking-widest tabular-nums" aria-live="polite" aria-atomic="true">0 DÍAS</span>
+            <div class="inline-flex items-center gap-5 bg-dark-950/50 border border-white/[0.06] px-8 py-4 backdrop-blur-lg animate-fade-in-up" style="animation-delay: 0.4s;">
+                <div class="w-10 h-10 flex items-center justify-center border border-gold-500/20">
+                    <i data-lucide="timer" class="w-5 h-5 text-gold-500"></i>
+                </div>
+                <div class="text-left">
+                    <span class="block text-[10px] text-white/40 uppercase tracking-[0.3em] mb-1" data-i18n="countdownLabel">Cuenta atrás Master Final</span>
+                    <span id="countdown" class="block text-2xl md:text-3xl font-display font-extrabold text-white tracking-wider tabular-nums" aria-live="polite" aria-atomic="true">0 DÍAS</span>
                 </div>
             </div>
         </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 animate-float" aria-hidden="true">
+            <div class="w-[1px] h-10 bg-gradient-to-b from-transparent to-gold-500/40"></div>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gold-500/50"></i>
+        </div>
     </header>
 
-    <!-- VIDEO MODAL -->
+    <!-- ═══════════════════════════════════════
+         VIDEO MODAL
+    ════════════════════════════════════════ -->
     <div id="video-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl hidden flex items-center justify-center p-4 md:p-8" role="dialog" aria-modal="true" aria-label="Reproductor de vídeo">
-        <button type="button" onclick="closeVideoModal()" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50" aria-label="Cerrar vídeo">
+        <button type="button" onclick="closeVideoModal()" class="absolute top-6 right-6 text-white/40 hover:text-white transition-colors z-50 cursor-pointer" aria-label="Cerrar vídeo">
             <i data-lucide="x" class="w-10 h-10"></i>
         </button>
-        <div class="w-full max-w-6xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl relative">
+        <div class="w-full max-w-6xl aspect-video bg-black overflow-hidden shadow-2xl relative">
             <video id="modal-video" class="w-full h-full" controls playsinline preload="none">
                 <source src="padel.mp4" type="video/mp4">
             </video>
         </div>
     </div>
 
-    <!-- TIMELINE SECTION -->
-    <section class="py-24 bg-slate-950 relative border-t border-white/10 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-amber-500/20 to-transparent hidden md:block" aria-hidden="true"></div>
+    <!-- ═══════════════════════════════════════
+         MARQUEE STRIP
+    ════════════════════════════════════════ -->
+    <div class="bg-gold-500 py-3 overflow-hidden" aria-hidden="true">
+        <div class="marquee-strip">
+            <div class="marquee-strip-inner font-display font-extrabold text-dark-950 text-sm tracking-[0.2em] uppercase">
+                <span>Road to Barcelona 2026</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>8 Naciones</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>7 Categorías</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>14 Parejas por País</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>Master Final Barcelona</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>Road to Barcelona 2026</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>8 Naciones</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>7 Categorías</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>14 Parejas por País</span>
+                <span class="text-dark-950/30">&mdash;</span>
+                <span>Master Final Barcelona</span>
+                <span class="text-dark-950/30">&mdash;</span>
+            </div>
+        </div>
+    </div>
 
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="text-center mb-20">
-                <h2 class="text-3xl md:text-6xl font-black uppercase tracking-tighter mb-4 text-white">
-                    <span data-i18n="timelineTitle1">El Camino a la</span> <span class="text-amber-500" data-i18n="timelineTitle2">Gloria</span>
+    <!-- ═══════════════════════════════════════
+         TIMELINE SECTION
+    ════════════════════════════════════════ -->
+    <section class="py-28 md:py-36 relative overflow-hidden">
+        <div class="absolute inset-0 pattern-grid pointer-events-none" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-20 md:mb-28 reveal">
+                <span class="inline-block font-display text-[11px] font-bold tracking-[0.4em] uppercase text-gold-500 mb-4">How it works</span>
+                <h2 class="font-display text-display-md uppercase text-white mb-5">
+                    <span data-i18n="timelineTitle1">El Camino a la</span> <span class="text-gradient-gold" data-i18n="timelineTitle2">Gloria</span>
                 </h2>
-                <p class="text-slate-400 max-w-2xl mx-auto text-lg" data-i18n="timelineSubtitle">Un proceso de ascenso desde tu club local hasta el Master Final de Barcelona.</p>
+                <p class="text-white/40 max-w-2xl mx-auto text-lg font-light" data-i18n="timelineSubtitle">Un proceso de ascenso desde tu club local hasta el Master Final de Barcelona.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 relative">
+            <!-- Timeline Grid -->
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8 relative">
+                <!-- Connecting line (desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold-500/15 to-transparent -translate-y-1/2 pointer-events-none" aria-hidden="true"></div>
+
                 <!-- Step 1 -->
-                <div class="group relative bg-slate-900 p-8 border border-white/10 hover:border-amber-500/50 transition-all rounded-sm hover:-translate-y-2 duration-300">
-                    <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors" aria-hidden="true">01</div>
-                    <h3 class="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10" data-i18n="step1Title">Fase Local</h3>
-                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step1Desc">
-                        Torneos en 8 sedes internacionales. Partido completo + Super Tie Break (3er set).
-                    </p>
-                    <div class="bg-black/40 p-4 rounded border-l-2 border-amber-500">
-                        <ul class="text-xs text-slate-500 space-y-1">
-                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3 h-3 text-amber-500"></i> <span data-i18n="goldenPoint">Juego con Bola de Oro</span></li>
-                            <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-3 h-3 text-amber-500"></i> <span data-i18n="step1List1">4 Cat. Masculinas / 3 Femeninas</span></li>
-                        </ul>
+                <div class="group relative reveal" style="transition-delay: 0.1s;">
+                    <div class="relative bg-dark-900 border border-white/[0.06] p-8 md:p-10 hover:border-gold-500/30 transition-all duration-300 overflow-hidden">
+                        <div class="step-number" aria-hidden="true">01</div>
+                        <!-- Step indicator -->
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 flex items-center justify-center border border-gold-500/30 text-gold-500 group-hover:bg-gold-500 group-hover:text-dark-950 transition-all duration-300">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div class="h-[1px] flex-1 bg-gradient-to-r from-gold-500/20 to-transparent"></div>
+                        </div>
+                        <h3 class="font-display text-xl md:text-2xl font-extrabold uppercase mb-4 text-white" data-i18n="step1Title">Fase Local</h3>
+                        <p class="text-white/50 text-sm mb-6 leading-relaxed" data-i18n="step1Desc">
+                            Torneos en 8 sedes internacionales. Partido completo + Super Tie Break (3er set).
+                        </p>
+                        <div class="bg-dark-950/60 p-4 border-l-2 border-gold-500/40">
+                            <ul class="text-xs text-white/40 space-y-2">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-gold-500"></i> <span data-i18n="goldenPoint">Juego con Bola de Oro</span></li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-gold-500"></i> <span data-i18n="step1List1">4 Cat. Masculinas / 3 Femeninas</span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="group relative bg-slate-900 p-8 border border-white/10 hover:border-amber-500/50 transition-all rounded-sm hover:-translate-y-2 duration-300 mt-8 md:mt-0">
-                    <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors" aria-hidden="true">02</div>
-                    <h3 class="text-2xl font-black uppercase mb-4 text-amber-500 relative z-10" data-i18n="step2Title">National Selection</h3>
-                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10">
-                        <span data-i18n="step2Desc">Las</span> <strong class="text-white" data-i18n="step2DescBold">2 Parejas Finalistas</strong> <span data-i18n="step2DescEnd">de cada categoría representarán a su selección en el Master Final.</span>
-                    </p>
-                    <div class="bg-amber-500/10 p-4 rounded border border-amber-500/20 flex items-center gap-3">
-                        <i data-lucide="trophy" class="w-8 h-8 text-amber-500"></i>
-                        <span class="text-xs font-bold text-amber-200 uppercase" data-i18n="step2Award">Objetivo: Barcelona 2026</span>
+                <div class="group relative reveal" style="transition-delay: 0.2s;">
+                    <div class="relative bg-dark-900 border border-white/[0.06] p-8 md:p-10 hover:border-gold-500/30 transition-all duration-300 overflow-hidden">
+                        <div class="step-number" aria-hidden="true">02</div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 flex items-center justify-center border border-gold-500/30 text-gold-500 group-hover:bg-gold-500 group-hover:text-dark-950 transition-all duration-300">
+                                <i data-lucide="shield" class="w-5 h-5"></i>
+                            </div>
+                            <div class="h-[1px] flex-1 bg-gradient-to-r from-gold-500/20 to-transparent"></div>
+                        </div>
+                        <h3 class="font-display text-xl md:text-2xl font-extrabold uppercase mb-4 text-white" data-i18n="step2Title">National Selection</h3>
+                        <p class="text-white/50 text-sm mb-6 leading-relaxed">
+                            <span data-i18n="step2Desc">Las</span> <strong class="text-white font-semibold" data-i18n="step2DescBold">2 Parejas Finalistas</strong> <span data-i18n="step2DescEnd">de cada categoría representarán a su selección en el Master Final.</span>
+                        </p>
+                        <div class="bg-gold-500/[0.06] p-4 border border-gold-500/15 flex items-center gap-4">
+                            <i data-lucide="trophy" class="w-7 h-7 text-gold-500 flex-shrink-0"></i>
+                            <span class="text-xs font-bold text-gold-300 uppercase tracking-wider" data-i18n="step2Award">Objetivo: Barcelona 2026</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="group relative bg-gradient-to-b from-slate-900 to-amber-900/20 p-8 border border-amber-500/40 hover:border-amber-500 transition-all rounded-sm hover:-translate-y-2 duration-300 mt-8 md:mt-0 shadow-[0_0_40px_rgba(245,158,11,0.1)]">
-                    <div class="absolute -top-6 left-8 md:left-auto md:right-8 text-8xl font-black text-white/5 group-hover:text-amber-500/10 transition-colors" aria-hidden="true">03</div>
-                    <h3 class="text-2xl font-black uppercase mb-4 text-white relative z-10" data-i18n="step3Title">The World Final</h3>
-                    <p class="text-slate-300 text-sm mb-6 leading-relaxed relative z-10" data-i18n="step3Desc">
-                        7-13 diciembre. 8 selecciones. 7 categorías. 14 parejas por país. Eliminatoria directa. 2 puntos pareja 1. 1 punto pareja 2. Bola de oro. 3º set Súper Tie Break.
-                    </p>
-                    <div class="inline-block bg-amber-500 text-black text-xs font-black px-4 py-2 uppercase rounded-sm tracking-wider" data-i18n="step3Badge">Coincide con Master Final</div>
+                <div class="group relative reveal" style="transition-delay: 0.3s;">
+                    <div class="relative bg-gradient-to-b from-dark-900 to-dark-900/60 border border-gold-500/20 hover:border-gold-500/50 p-8 md:p-10 transition-all duration-300 overflow-hidden glow-gold">
+                        <div class="step-number" aria-hidden="true">03</div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 flex items-center justify-center bg-gold-500 text-dark-950">
+                                <i data-lucide="globe" class="w-5 h-5"></i>
+                            </div>
+                            <div class="h-[1px] flex-1 bg-gradient-to-r from-gold-500/30 to-transparent"></div>
+                        </div>
+                        <h3 class="font-display text-xl md:text-2xl font-extrabold uppercase mb-4 text-gradient-gold" data-i18n="step3Title">The World Final</h3>
+                        <p class="text-white/50 text-sm mb-6 leading-relaxed" data-i18n="step3Desc">
+                            7-13 diciembre. 8 selecciones. 7 categorías. 14 parejas por país. Eliminatoria directa. 2 puntos pareja 1. 1 punto pareja 2. Bola de oro. 3º set Súper Tie Break.
+                        </p>
+                        <div class="inline-block bg-gold-500 text-dark-950 text-xs font-display font-extrabold px-5 py-2.5 uppercase tracking-wider" data-i18n="step3Badge">Coincide con Master Final</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BARCELONA EXPERIENCE -->
-    <section class="py-0 grid md:grid-cols-2 bg-slate-900 border-y border-white/10">
-        <div class="relative min-h-[500px] md:min-h-full group overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=2070&auto=format&fit=crop"
-                 alt="Vista panorámica de Barcelona"
-                 width="2070" height="1380"
-                 loading="lazy"
-                 decoding="async"
-                 class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-1000"/>
-            <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-transparent to-transparent md:bg-gradient-to-t"></div>
-            <div class="absolute bottom-12 left-8 md:left-12">
-                <h3 class="text-5xl md:text-7xl font-black uppercase text-white mb-2 leading-none">
-                    <span data-i18n="madridTitle1">Destino</span><br/><span data-i18n="madridTitle2">Barcelona</span>
-                </h3>
-                <p class="text-amber-500 font-bold tracking-[0.5em] text-sm md:text-base border-t border-amber-500 pt-4 mt-4 inline-block" data-i18n="madridSubtitle">EPICENTRO MUNDIAL DEL PÁDEL</p>
+    <!-- ═══════════════════════════════════════
+         BARCELONA EXPERIENCE
+    ════════════════════════════════════════ -->
+    <section class="relative overflow-hidden">
+        <!-- Full-bleed image side -->
+        <div class="grid lg:grid-cols-2 min-h-[700px]">
+            <!-- Image Column -->
+            <div class="relative min-h-[450px] lg:min-h-full group overflow-hidden reveal-left">
+                <img src="https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=2070&auto=format&fit=crop"
+                     alt="Vista panorámica de Barcelona"
+                     width="2070" height="1380"
+                     loading="lazy"
+                     decoding="async"
+                     class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-[1.5s]">
+                <div class="absolute inset-0 bg-gradient-to-r from-dark-950/90 via-dark-950/30 to-transparent lg:bg-gradient-to-t lg:from-dark-950/80 lg:via-transparent"></div>
+
+                <!-- Overlay text -->
+                <div class="absolute bottom-10 left-8 md:left-12 z-10">
+                    <h3 class="font-display text-display-md uppercase text-white mb-3 leading-none">
+                        <span data-i18n="madridTitle1" class="block text-white/60">Destino</span>
+                        <span data-i18n="madridTitle2" class="text-gradient-gold">Barcelona</span>
+                    </h3>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-[1px] bg-gold-500"></div>
+                        <p class="text-gold-500 font-display font-bold tracking-[0.3em] text-[11px] md:text-xs uppercase" data-i18n="madridSubtitle">Epicentro Mundial del Pádel</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="p-12 md:p-24 flex flex-col justify-center bg-slate-950">
-            <h3 class="text-3xl font-black uppercase mb-12 text-white">
-                <span data-i18n="xpTitle">Experiencia</span> <span class="text-amber-500" data-i18n="xpTitle2">Master Final</span>
-            </h3>
-            <ul class="space-y-10">
-                <li class="flex items-start gap-6 group">
-                    <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
-                        <i data-lucide="crown" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp1Title">Conexión con la Élite</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp1Desc">Solo por representar a tu selección tendrás entrada para ver el Master Final de Barcelona.</p>
-                    </div>
-                </li>
-                <li class="flex items-start gap-6 group">
-                    <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
-                        <i data-lucide="gem" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp2Title">VIP Hospitality</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp2Desc">Palcos privados, gastronomía premium y el mejor networking del sector.</p>
-                    </div>
-                </li>
-                <li class="flex items-start gap-6 group">
-                    <div class="p-3 bg-slate-900 border border-white/10 rounded-sm text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors">
-                        <i data-lucide="zap" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold uppercase text-white text-lg mb-1" data-i18n="xp3Title">Activaciones & Concursos</h4>
-                        <p class="text-slate-400 text-sm leading-relaxed" data-i18n="xp3Desc">Premios, activaciones de marcas, presentaciones de productos, cena de Gala y clinics con Profesionales.</p>
-                    </div>
-                </li>
-            </ul>
+
+            <!-- Content Column -->
+            <div class="relative bg-dark-950 p-10 md:p-16 lg:p-20 xl:p-28 flex flex-col justify-center">
+                <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-gold-500/20 to-transparent lg:w-[1px] lg:h-full lg:bg-gradient-to-b" aria-hidden="true"></div>
+
+                <div class="reveal">
+                    <span class="inline-block font-display text-[11px] font-bold tracking-[0.4em] uppercase text-gold-500/60 mb-6">The Experience</span>
+                    <h3 class="font-display text-display-sm uppercase mb-14 text-white">
+                        <span data-i18n="xpTitle">Experiencia</span> <span class="text-gradient-gold" data-i18n="xpTitle2">Master Final</span>
+                    </h3>
+
+                    <ul class="space-y-10">
+                        <li class="flex items-start gap-5 group/item">
+                            <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center border border-white/[0.08] text-gold-500 group-hover/item:bg-gold-500 group-hover/item:text-dark-950 group-hover/item:border-gold-500 transition-all duration-300">
+                                <i data-lucide="crown" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold uppercase text-white text-base mb-1.5" data-i18n="xp1Title">Conexión con la Élite</h4>
+                                <p class="text-white/40 text-sm leading-relaxed" data-i18n="xp1Desc">Solo por representar a tu selección tendrás entrada para ver el Master Final de Barcelona.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-5 group/item">
+                            <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center border border-white/[0.08] text-gold-500 group-hover/item:bg-gold-500 group-hover/item:text-dark-950 group-hover/item:border-gold-500 transition-all duration-300">
+                                <i data-lucide="gem" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold uppercase text-white text-base mb-1.5" data-i18n="xp2Title">VIP Hospitality</h4>
+                                <p class="text-white/40 text-sm leading-relaxed" data-i18n="xp2Desc">Palcos privados, gastronomía premium y el mejor networking del sector.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-5 group/item">
+                            <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center border border-white/[0.08] text-gold-500 group-hover/item:bg-gold-500 group-hover/item:text-dark-950 group-hover/item:border-gold-500 transition-all duration-300">
+                                <i data-lucide="zap" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-display font-bold uppercase text-white text-base mb-1.5" data-i18n="xp3Title">Activaciones & Concursos</h4>
+                                <p class="text-white/40 text-sm leading-relaxed" data-i18n="xp3Desc">Premios, activaciones de marcas, presentaciones de productos, cena de Gala y clinics con Profesionales.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- COUNTRY SELECTOR -->
-    <section id="paises" class="py-24 bg-slate-950 relative">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-7xl font-black uppercase tracking-tighter text-white mb-6">
-                <span data-i18n="countryTitle1">Representa a tu</span> <span class="text-amber-500" data-i18n="countryTitle2">Bandera</span>
-            </h2>
-            <p class="text-xl text-slate-400 max-w-2xl mx-auto font-light mb-16">
-                <span data-i18n="countrySubtitle1">No juegas solo por un trofeo.</span> <span class="text-white font-medium" data-i18n="countrySubtitle2">Juegas por tus colores.</span>
-            </p>
+    <!-- ═══════════════════════════════════════
+         COUNTRY SELECTOR
+    ════════════════════════════════════════ -->
+    <section id="paises" class="py-28 md:py-36 relative overflow-hidden">
+        <div class="absolute inset-0 pattern-dots pointer-events-none" aria-hidden="true"></div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto" id="country-grid" role="list">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
+            <div class="text-center mb-16 md:mb-20 reveal">
+                <span class="inline-block font-display text-[11px] font-bold tracking-[0.4em] uppercase text-gold-500 mb-4">Choose Your Nation</span>
+                <h2 class="font-display text-display-md uppercase text-white mb-5">
+                    <span data-i18n="countryTitle1">Representa a tu</span> <span class="text-gradient-gold" data-i18n="countryTitle2">Bandera</span>
+                </h2>
+                <p class="text-lg text-white/40 max-w-2xl mx-auto font-light">
+                    <span data-i18n="countrySubtitle1">No juegas solo por un trofeo.</span> <span class="text-white/80 font-medium" data-i18n="countrySubtitle2">Juegas por tus colores.</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 max-w-5xl mx-auto reveal" id="country-grid" role="list">
                 <!-- Generated by JS (safe DOM manipulation) -->
             </div>
 
             <noscript>
-                <p class="text-slate-400 mt-8">Activa JavaScript para ver los países disponibles / Enable JavaScript to see available countries.</p>
+                <p class="text-white/40 mt-8 text-center">Activa JavaScript para ver los países disponibles / Enable JavaScript to see available countries.</p>
             </noscript>
         </div>
     </section>
 
-    <!-- REGISTRATION FORM -->
-    <section id="inscripcion" class="py-24 bg-slate-900 border-t border-white/5 relative">
-        <div class="absolute inset-0 carbon-pattern"></div>
-        <div class="container mx-auto px-4 max-w-4xl relative z-10">
-            <div class="bg-slate-950 border border-white/10 rounded-sm p-8 md:p-16 shadow-2xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500 blur-[80px] opacity-20 pointer-events-none" aria-hidden="true"></div>
+    <!-- ═══════════════════════════════════════
+         REGISTRATION FORM
+    ════════════════════════════════════════ -->
+    <section id="inscripcion" class="py-28 md:py-36 relative overflow-hidden">
+        <div class="absolute inset-0 carbon-pattern pointer-events-none" aria-hidden="true"></div>
+        <!-- Decorative glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gold-500/[0.04] rounded-full blur-[150px] pointer-events-none" aria-hidden="true"></div>
 
-                <div class="text-center mb-12">
-                    <i data-lucide="quote" class="w-10 h-10 text-amber-500/40 mx-auto mb-4"></i>
-                    <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-4 tracking-tighter leading-tight italic" data-i18n="formTitle">
-                        ¿Te imaginas vestir la indumentaria de tu país, escuchar tu himno nacional y disputar la Final de la World Padel Nations Cup?
-                    </h2>
-                    <div class="w-20 h-1 bg-amber-500 mx-auto mb-4" aria-hidden="true"></div>
-                    <p class="text-xl md:text-2xl font-bold text-amber-500" data-i18n="formSubtitle">Ahora es posible.</p>
+        <div class="max-w-4xl mx-auto px-5 md:px-8 relative z-10">
+            <div class="bg-dark-900 border border-white/[0.06] p-8 md:p-14 lg:p-20 relative overflow-hidden">
+                <!-- Accent corner -->
+                <div class="absolute top-0 left-0 w-20 h-20" aria-hidden="true">
+                    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-gold-500/50 to-transparent"></div>
+                    <div class="absolute top-0 left-0 w-[1px] h-full bg-gradient-to-b from-gold-500/50 to-transparent"></div>
+                </div>
+                <div class="absolute bottom-0 right-0 w-20 h-20" aria-hidden="true">
+                    <div class="absolute bottom-0 right-0 w-full h-[1px] bg-gradient-to-l from-gold-500/50 to-transparent"></div>
+                    <div class="absolute bottom-0 right-0 w-[1px] h-full bg-gradient-to-t from-gold-500/50 to-transparent"></div>
                 </div>
 
+                <!-- Form Header -->
+                <div class="text-center mb-14 reveal">
+                    <div class="w-12 h-12 mx-auto mb-6 flex items-center justify-center border border-gold-500/20">
+                        <i data-lucide="quote" class="w-5 h-5 text-gold-500/40"></i>
+                    </div>
+                    <h2 class="font-display text-xl md:text-2xl lg:text-3xl font-extrabold uppercase text-white mb-5 leading-tight italic tracking-tight" data-i18n="formTitle">
+                        ¿Te imaginas vestir la indumentaria de tu país, escuchar tu himno nacional y disputar la Final de la World Padel Nations Cup?
+                    </h2>
+                    <div class="flex items-center justify-center gap-4 mb-5" aria-hidden="true">
+                        <div class="w-12 h-[1px] bg-gold-500/30"></div>
+                        <div class="w-2 h-2 bg-gold-500/40 rotate-45"></div>
+                        <div class="w-12 h-[1px] bg-gold-500/30"></div>
+                    </div>
+                    <p class="text-xl md:text-2xl font-display font-bold text-gradient-gold" data-i18n="formSubtitle">Ahora es posible.</p>
+                </div>
+
+                <!-- Form -->
                 <form id="registration-form" class="space-y-10" novalidate>
-                    <div class="grid md:grid-cols-2 gap-8 p-6 bg-slate-900/50 border border-white/5 rounded-sm">
+                    <!-- Venue + Category -->
+                    <div class="grid md:grid-cols-2 gap-6 p-6 bg-dark-950/50 border border-white/[0.04]">
                         <div>
-                            <label for="sede-select" class="block text-xs font-bold uppercase text-amber-500 mb-2 tracking-wider" data-i18n="lblSede">Sede Seleccionada</label>
-                            <select id="sede-select" name="sede" required class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                            <label for="sede-select" class="block text-[11px] font-display font-bold uppercase text-gold-500 mb-2.5 tracking-wider" data-i18n="lblSede">Sede Seleccionada</label>
+                            <select id="sede-select" name="sede" required class="w-full bg-dark-950 border border-white/10 text-white p-3.5 form-input font-body text-sm cursor-pointer">
                                 <option value="" disabled selected data-i18n="phSede">Elige tu sede</option>
                                 <option value="ES" data-i18n="countrySpain">España</option>
                                 <option value="MX" data-i18n="countryMexico">México</option>
@@ -319,8 +456,8 @@
                             </select>
                         </div>
                         <div>
-                            <label for="categoria-select" class="block text-xs font-bold uppercase text-amber-500 mb-2 tracking-wider" data-i18n="lblCat">Categoría</label>
-                            <select id="categoria-select" name="categoria" required class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                            <label for="categoria-select" class="block text-[11px] font-display font-bold uppercase text-gold-500 mb-2.5 tracking-wider" data-i18n="lblCat">Categoría</label>
+                            <select id="categoria-select" name="categoria" required class="w-full bg-dark-950 border border-white/10 text-white p-3.5 form-input font-body text-sm cursor-pointer">
                                 <option value="" disabled selected data-i18n="phCat">Selecciona nivel</option>
                                 <optgroup label="Masculina" data-i18n-group="Masculina">
                                     <option value="1M">1ª Masculina</option>
@@ -338,50 +475,53 @@
                     </div>
 
                     <!-- Player 1 -->
-                    <fieldset class="border-t border-white/10 pt-8">
-                        <legend class="text-xl font-black text-white mb-6 uppercase" data-i18n="p1Title">Datos Jugador 1</legend>
+                    <fieldset class="border-t border-white/[0.06] pt-8">
+                        <legend class="font-display text-lg font-extrabold text-white mb-6 uppercase tracking-wide" data-i18n="p1Title">Datos Jugador 1</legend>
                         <div class="grid md:grid-cols-2 gap-5">
                             <div>
-                                <label for="nombre1" class="sr-only" data-i18n="phName">Nombre y Apellidos</label>
+                                <label for="nombre1" class="block text-[11px] font-display font-bold uppercase text-white/40 mb-2 tracking-wider" data-i18n="phName">Nombre y Apellidos</label>
                                 <input type="text" id="nombre1" name="nombre1" data-i18n-ph="phName" placeholder="Nombre y Apellidos" required autocomplete="name"
-                                    class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                                    class="w-full bg-dark-950 border border-white/10 text-white p-3.5 form-input font-body text-sm">
                             </div>
                             <div>
-                                <label for="email1" class="sr-only">Email</label>
+                                <label for="email1" class="block text-[11px] font-display font-bold uppercase text-white/40 mb-2 tracking-wider">Email</label>
                                 <input type="email" id="email1" name="email1" placeholder="Email" required autocomplete="email"
-                                    class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                                    class="w-full bg-dark-950 border border-white/10 text-white p-3.5 form-input font-body text-sm">
                             </div>
                         </div>
                     </fieldset>
 
                     <!-- Player 2 -->
-                    <fieldset class="border-t border-white/10 pt-8">
-                        <legend class="text-xl font-black text-white mb-6 uppercase" data-i18n="p2Title">Datos Jugador 2</legend>
+                    <fieldset class="border-t border-white/[0.06] pt-8">
+                        <legend class="font-display text-lg font-extrabold text-white mb-6 uppercase tracking-wide" data-i18n="p2Title">Datos Jugador 2</legend>
                         <div class="grid md:grid-cols-2 gap-5">
                             <div>
-                                <label for="nombre2" class="sr-only" data-i18n="phName">Nombre y Apellidos</label>
+                                <label for="nombre2" class="block text-[11px] font-display font-bold uppercase text-white/40 mb-2 tracking-wider" data-i18n="phName">Nombre y Apellidos</label>
                                 <input type="text" id="nombre2" name="nombre2" data-i18n-ph="phName" placeholder="Nombre y Apellidos" required autocomplete="name"
-                                    class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                                    class="w-full bg-dark-950 border border-white/10 text-white p-3.5 form-input font-body text-sm">
                             </div>
                             <div>
-                                <label for="email2" class="sr-only">Email</label>
+                                <label for="email2" class="block text-[11px] font-display font-bold uppercase text-white/40 mb-2 tracking-wider">Email</label>
                                 <input type="email" id="email2" name="email2" placeholder="Email" required autocomplete="email"
-                                    class="w-full bg-slate-950 border border-slate-700 text-white rounded-sm p-3 focus:border-amber-500 focus:outline-none">
+                                    class="w-full bg-dark-950 border border-white/10 text-white p-3.5 form-input font-body text-sm">
                             </div>
                         </div>
                     </fieldset>
 
-                    <div class="space-y-4 text-sm text-slate-400 p-6 bg-slate-900/30 rounded-sm">
-                        <label for="terms-checkbox" class="flex items-start gap-3 cursor-pointer">
-                            <input type="checkbox" id="terms-checkbox" name="terms" required class="mt-1 accent-amber-500 w-4 h-4">
+                    <!-- Terms -->
+                    <div class="p-5 bg-dark-950/40 border border-white/[0.04]">
+                        <label for="terms-checkbox" class="flex items-start gap-3 cursor-pointer text-sm text-white/50">
+                            <input type="checkbox" id="terms-checkbox" name="terms" required class="mt-1 accent-gold-500 w-4 h-4 cursor-pointer">
                             <span>
                                 <span data-i18n="terms1">Acepto la</span>
-                                <a href="privacy.html" target="_blank" rel="noopener noreferrer" class="text-amber-500 underline hover:text-amber-400 transition-colors" data-i18n="terms2">Normativa y Política de Privacidad</a>.
+                                <a href="privacy.html" target="_blank" rel="noopener noreferrer" class="text-gold-500 underline underline-offset-2 hover:text-gold-400 transition-colors" data-i18n="terms2">Normativa y Política de Privacidad</a>.
                             </span>
                         </label>
                     </div>
 
-                    <button type="submit" id="submit-btn" class="w-full bg-amber-500 hover:bg-white text-slate-950 font-black uppercase text-xl py-5 rounded-sm transition-all shadow-[0_4px_20px_rgba(245,158,11,0.4)] tracking-widest">
+                    <!-- Submit -->
+                    <button type="submit" id="submit-btn"
+                        class="w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-display font-extrabold uppercase text-lg py-5 transition-all duration-200 tracking-widest cursor-pointer hover:shadow-[0_0_40px_rgba(232,185,48,0.35)]">
                         <span data-i18n="btnSubmit">Confirmar Inscripción</span>
                     </button>
                 </form>
@@ -389,24 +529,39 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black py-16 border-t border-white/10 text-center md:text-left">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-6 justify-center md:justify-start">
-            <picture>
-                <source srcset="logo.webp" type="image/webp">
-                <img src="padel.png" alt="World Padel Nations Cup Logo" width="64" height="64" loading="lazy" decoding="async"
-                     class="w-16 h-16 object-contain filter drop-shadow-[0_0_10px_rgba(245,158,11,0.3)]">
-            </picture>
-            <div class="text-center md:text-left">
-                <div class="font-black text-3xl uppercase tracking-tighter mb-2 text-white">World Padel <span class="text-amber-500">Nations Cup</span></div>
-                <p class="text-slate-500 text-sm">© 2026 World Padel Nations Cup. Road to Barcelona.</p>
+    <!-- ═══════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════ -->
+    <footer class="bg-dark-950 border-t border-white/[0.04] relative">
+        <!-- Gold accent line -->
+        <div class="h-[1px] bg-gradient-to-r from-transparent via-gold-500/30 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-14">
+            <div class="flex flex-col md:flex-row items-center gap-8 justify-between">
+                <div class="flex items-center gap-4">
+                    <picture>
+                        <source srcset="logo.webp" type="image/webp">
+                        <img src="padel.png" alt="World Padel Nations Cup Logo" width="56" height="56" loading="lazy" decoding="async"
+                             class="w-14 h-14 object-contain">
+                    </picture>
+                    <div>
+                        <div class="font-display font-extrabold text-2xl uppercase tracking-tight text-white">World Padel <span class="text-gradient-gold">Nations Cup</span></div>
+                        <p class="text-white/30 text-xs mt-1">Road to Barcelona 2026</p>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-6 text-center md:text-right">
+                    <a href="https://wa.me/34660892503" target="_blank" rel="noopener noreferrer" class="text-white/30 hover:text-gold-500 transition-colors text-xs uppercase tracking-widest font-display font-bold">Contacto</a>
+                    <a href="privacy.html" class="text-white/30 hover:text-gold-500 transition-colors text-xs uppercase tracking-widest font-display font-bold">Privacidad</a>
+                    <span class="text-white/20 text-xs">&copy; 2026 WPNC</span>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Lucide Icons (v0.460.0, self-hosted — no external CDN risk) -->
+    <!-- ═══════════════════════════════════════
+         SCRIPTS
+    ════════════════════════════════════════ -->
     <script src="lucide.min.js"></script>
-    <!-- EmailJS SDK (self-hosted) -->
     <script src="emailjs.min.js"></script>
 
     <script>
@@ -431,16 +586,37 @@
             document.body.style.overflow = '';
         }
 
-        // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeVideoModal();
         });
 
-        // Ensure background video autoplay (some browsers block it)
         document.addEventListener('DOMContentLoaded', function() {
             var bgVideo = document.getElementById('bg-video');
             if (bgVideo) bgVideo.play().catch(function() {});
         });
+
+        // --- SCROLL REVEAL (IntersectionObserver) ---
+        (function() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) {
+                    el.classList.add('visible');
+                });
+                return;
+            }
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.reveal, .reveal-left').forEach(function(el) {
+                observer.observe(el);
+            });
+        })();
 
         // --- TRANSLATION SYSTEM ---
         var translations = {
@@ -476,7 +652,7 @@
 
                 madridTitle1: "Destino",
                 madridTitle2: "Barcelona",
-                madridSubtitle: "EPICENTRO MUNDIAL DEL PÁDEL",
+                madridSubtitle: "Epicentro Mundial del Pádel",
 
                 xpTitle: "Experiencia",
                 xpTitle2: "Master Final",
@@ -520,7 +696,7 @@
                 statusSoldOut: "Sold Out",
                 statusSoon: "Próximamente",
 
-                formSuccess: "✓ Inscripción enviada",
+                formSuccess: "Inscripción enviada correctamente",
                 formSending: "Enviando...",
                 formErrorFields: "Por favor, completa todos los campos.",
                 formErrorTerms: "Debes aceptar la normativa.",
@@ -559,7 +735,7 @@
 
                 madridTitle1: "Destination",
                 madridTitle2: "Barcelona",
-                madridSubtitle: "WORLD PADEL CAPITAL",
+                madridSubtitle: "World Padel Capital",
 
                 xpTitle: "Master Final",
                 xpTitle2: "Experience",
@@ -603,7 +779,7 @@
                 statusSoldOut: "Sold Out",
                 statusSoon: "Coming Soon",
 
-                formSuccess: "✓ Registration sent",
+                formSuccess: "Registration sent successfully",
                 formSending: "Sending...",
                 formErrorFields: "Please fill in all fields.",
                 formErrorTerms: "You must accept the regulations.",
@@ -612,7 +788,7 @@
             }
         };
 
-        // Current language (with safe localStorage access)
+        // Current language
         var currentLang = 'es';
         try { currentLang = localStorage.getItem('wpnc_lang') || 'es'; } catch(e) {}
 
@@ -620,21 +796,18 @@
             currentLang = lang;
             try { localStorage.setItem('wpnc_lang', lang); } catch(e) {}
 
-            // Update <html lang>
             document.getElementById('html-root').setAttribute('lang', lang);
 
-            // Update language button UI
             var btnEs = document.getElementById('btn-es');
             var btnEn = document.getElementById('btn-en');
             if (lang === 'es') {
-                btnEs.className = 'lang-active transition-all pb-1';
-                btnEn.className = 'lang-inactive transition-all pb-1';
+                btnEs.className = 'lang-active transition-all pb-0.5 cursor-pointer';
+                btnEn.className = 'lang-inactive transition-all pb-0.5 cursor-pointer';
             } else {
-                btnEs.className = 'lang-inactive transition-all pb-1';
-                btnEn.className = 'lang-active transition-all pb-1';
+                btnEs.className = 'lang-inactive transition-all pb-0.5 cursor-pointer';
+                btnEn.className = 'lang-active transition-all pb-0.5 cursor-pointer';
             }
 
-            // Update text content (textContent instead of innerText)
             document.querySelectorAll('[data-i18n]').forEach(function(el) {
                 var key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
@@ -642,7 +815,6 @@
                 }
             });
 
-            // Update placeholders
             document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
                 var key = el.getAttribute('data-i18n-ph');
                 if (translations[lang][key]) {
@@ -650,29 +822,25 @@
                 }
             });
 
-            // Update optgroups
             document.querySelectorAll('optgroup').forEach(function(el) {
                 if (el.label === 'Masculina' || el.label === 'Male') el.label = lang === 'es' ? 'Masculina' : 'Male';
                 if (el.label === 'Femenina' || el.label === 'Female') el.label = lang === 'es' ? 'Femenina' : 'Female';
             });
 
-            // Regenerate country grid
             renderCountries();
-
-            // Update countdown text
             updateCountdown();
         }
 
-        // --- COUNTRIES (safe DOM manipulation — no innerHTML) ---
+        // --- COUNTRIES ---
         var countriesData = [
-            { id: 'countrySpain', code: 'ES', flag: '🇪🇸' },
-            { id: 'countryMexico', code: 'MX', flag: '🇲🇽' },
-            { id: 'countryItaly', code: 'IT', flag: '🇮🇹' },
-            { id: 'countryPortugal', code: 'PT', flag: '🇵🇹' },
-            { id: 'countryUK', code: 'UK', flag: '🇬🇧' },
-            { id: 'countryDubai', code: 'AE', flag: '🇦🇪' },
-            { id: 'countryIndonesia', code: 'ID', flag: '🇮🇩' },
-            { id: 'countryCostaRica', code: 'CR', flag: '🇨🇷' }
+            { id: 'countrySpain', code: 'ES', flag: '\u{1F1EA}\u{1F1F8}' },
+            { id: 'countryMexico', code: 'MX', flag: '\u{1F1F2}\u{1F1FD}' },
+            { id: 'countryItaly', code: 'IT', flag: '\u{1F1EE}\u{1F1F9}' },
+            { id: 'countryPortugal', code: 'PT', flag: '\u{1F1F5}\u{1F1F9}' },
+            { id: 'countryUK', code: 'UK', flag: '\u{1F1EC}\u{1F1E7}' },
+            { id: 'countryDubai', code: 'AE', flag: '\u{1F1E6}\u{1F1EA}' },
+            { id: 'countryIndonesia', code: 'ID', flag: '\u{1F1EE}\u{1F1E9}' },
+            { id: 'countryCostaRica', code: 'CR', flag: '\u{1F1E8}\u{1F1F7}' }
         ];
 
         function renderCountries() {
@@ -686,11 +854,11 @@
                 var btn = document.createElement('button');
                 btn.type = 'button';
                 btn.setAttribute('role', 'listitem');
-                btn.className = 'relative group p-6 rounded-sm border border-white/10 bg-slate-900/50 backdrop-blur-sm transition-all text-left flex flex-col items-center justify-center gap-4 h-40 cursor-pointer hover:bg-slate-800 hover:border-amber-500/50 hover:-translate-y-1';
+                btn.className = 'country-card group p-5 md:p-6 border border-white/[0.06] bg-dark-900/80 backdrop-blur-sm text-center flex flex-col items-center justify-center gap-3 h-36 md:h-44 cursor-pointer hover:bg-dark-800 hover:border-gold-500/30 hover:-translate-y-1 duration-300';
                 btn.setAttribute('aria-label', name);
 
                 var flagSpan = document.createElement('span');
-                flagSpan.className = 'text-5xl filter drop-shadow-lg transform group-hover:scale-110 transition-transform duration-300';
+                flagSpan.className = 'text-4xl md:text-5xl transform group-hover:scale-110 transition-transform duration-300';
                 flagSpan.setAttribute('aria-hidden', 'true');
                 flagSpan.textContent = c.flag;
 
@@ -698,11 +866,11 @@
                 infoDiv.className = 'text-center w-full';
 
                 var nameEl = document.createElement('h3');
-                nameEl.className = 'font-bold text-white uppercase tracking-wider mb-2 text-sm md:text-base';
+                nameEl.className = 'font-display font-bold text-white uppercase tracking-wider mb-2 text-xs md:text-sm';
                 nameEl.textContent = name;
 
                 var statusEl = document.createElement('span');
-                statusEl.className = 'block w-full text-[10px] font-bold uppercase px-2 py-1 rounded border text-emerald-400 border-emerald-400/20 bg-emerald-400/5';
+                statusEl.className = 'inline-block text-[10px] font-bold uppercase px-3 py-1 tracking-wider text-emerald-400 border border-emerald-400/15 bg-emerald-400/[0.05]';
                 statusEl.textContent = status;
 
                 infoDiv.appendChild(nameEl);
@@ -719,7 +887,7 @@
             });
         }
 
-        // --- COUNTDOWN (once per minute — only shows days) ---
+        // --- COUNTDOWN ---
         var targetDate = new Date('2026-12-07T00:00:00').getTime();
 
         function updateCountdown() {
@@ -732,12 +900,6 @@
         setInterval(updateCountdown, 60000);
 
         // --- EMAILJS CONFIG ---
-        // 1. Create free account at https://www.emailjs.com
-        // 2. Add an Email Service (Gmail, Outlook, etc.) → copy Service ID
-        // 3. Create template "admin_notification" → copy Template ID
-        // 4. Create template "user_confirmation" → copy Template ID
-        // 5. Copy your Public Key from Account → General
-        // 6. Replace the values below:
         var EMAILJS_PUBLIC_KEY = '5AdKoAgz0GGmmWJ8_';
         var EMAILJS_SERVICE_ID = 'service_hbcuqeg';
         var EMAILJS_ADMIN_TEMPLATE = 'template_70ogxm4';
@@ -745,11 +907,10 @@
 
         emailjs.init(EMAILJS_PUBLIC_KEY);
 
-        // Sede code → readable name mapping
         var sedeNames = { ES: 'España', MX: 'México', IT: 'Italia', PT: 'Portugal', UK: 'UK', CR: 'Costa Rica', AE: 'Dubai', ID: 'Indonesia' };
         var catNames = { '1M': '1ª Masculina', '2M': '2ª Masculina', '3M': '3ª Masculina', '4M': '4ª Masculina', '2F': '2ª Femenina', '3F': '3ª Femenina', '4F': '4ª Femenina' };
 
-        // --- FORM VALIDATION & SUBMISSION ---
+        // --- FORM SUBMISSION ---
         document.getElementById('registration-form').addEventListener('submit', function(e) {
             e.preventDefault();
             var t = translations[currentLang];
@@ -778,7 +939,6 @@
                 return;
             }
 
-            // Disable button while sending
             var btn = document.getElementById('submit-btn');
             btn.disabled = true;
             btn.textContent = t.formSending;
@@ -787,7 +947,6 @@
             var sedeName = sedeNames[sede] || sede;
             var catName = catNames[cat] || cat;
 
-            // Shared template params
             var params = {
                 sede: sedeName,
                 categoria: catName,
@@ -798,14 +957,13 @@
                 fecha: new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
             };
 
-            // Send all 3 emails: 1 admin + 1 confirmation per player
             Promise.all([
                 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_ADMIN_TEMPLATE, params),
                 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_USER_TEMPLATE, Object.assign({}, params, { to_email: e1, to_name: n1, partner_name: n2 })),
                 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_USER_TEMPLATE, Object.assign({}, params, { to_email: e2, to_name: n2, partner_name: n1 }))
             ]).then(function() {
                 btn.textContent = t.formSuccess;
-                btn.classList.remove('bg-amber-500', 'hover:bg-white', 'opacity-60');
+                btn.classList.remove('bg-gold-500', 'hover:bg-gold-400', 'opacity-60');
                 btn.classList.add('bg-emerald-500', 'cursor-not-allowed');
             }).catch(function(err) {
                 console.error('EmailJS error:', err);
@@ -813,11 +971,11 @@
                 btn.disabled = false;
                 btn.textContent = t.formErrorSend;
                 btn.classList.remove('opacity-60');
-                btn.classList.add('bg-red-500');
+                btn.classList.add('bg-scarlet-500');
                 setTimeout(function() {
                     btn.textContent = translations[currentLang].btnSubmit;
-                    btn.classList.remove('bg-red-500');
-                    btn.classList.add('bg-amber-500');
+                    btn.classList.remove('bg-scarlet-500');
+                    btn.classList.add('bg-gold-500');
                 }, 3000);
             });
         });
