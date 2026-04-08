@@ -25,6 +25,13 @@ body {
 .lang-inactive { color: #64748b; font-weight: 500; }
 .lang-inactive:hover { color: white; }
 
+/* --- Hero Title: evitar desbordamiento en móvil --- */
+.hero-title {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+}
+
 /* --- Hero Video Overlay --- */
 .video-overlay {
     background:
