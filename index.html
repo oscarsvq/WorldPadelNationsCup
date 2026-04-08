@@ -64,8 +64,8 @@
                     </div>
                 </a>
 
-                <!-- Nav Right -->
-                <div class="flex items-center gap-3 md:gap-5">
+                <!-- Nav Right (desktop) -->
+                <div class="hidden md:flex items-center gap-5">
                     <!-- WhatsApp -->
                     <a href="https://wa.me/34660892503" target="_blank" rel="noopener noreferrer"
                        class="flex items-center gap-2 text-white/60 hover:text-green-400 transition-colors group"
@@ -77,7 +77,7 @@
                     </a>
 
                     <!-- Language Switcher -->
-                    <div class="flex items-center gap-2 text-xs tracking-widest border-l border-white/10 pl-3 md:pl-5" role="group" aria-label="Selector de idioma">
+                    <div class="flex items-center gap-2 text-xs tracking-widest border-l border-white/10 pl-5" role="group" aria-label="Selector de idioma">
                         <button type="button" onclick="setLanguage('es')" id="btn-es" class="lang-active transition-all pb-0.5 cursor-pointer" aria-label="Español">ES</button>
                         <span class="text-white/20" aria-hidden="true">/</span>
                         <button type="button" onclick="setLanguage('en')" id="btn-en" class="lang-inactive transition-all pb-0.5 cursor-pointer" aria-label="English">EN</button>
@@ -85,14 +85,51 @@
 
                     <!-- CTA -->
                     <button type="button" onclick="document.getElementById('inscripcion').scrollIntoView({behavior: 'smooth'})"
-                        class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-display font-extrabold uppercase tracking-wider px-4 py-2.5 md:px-7 md:py-3 transition-all duration-200 text-[11px] md:text-xs cursor-pointer hover:shadow-[0_0_30px_rgba(232,185,48,0.35)]">
+                        class="bg-gold-500 hover:bg-gold-400 text-dark-950 font-display font-extrabold uppercase tracking-wider px-7 py-3 transition-all duration-200 text-xs cursor-pointer hover:shadow-[0_0_30px_rgba(232,185,48,0.35)]">
                         <span data-i18n="navBtn">Inscríbete</span>
+                    </button>
+                </div>
+
+                <!-- Nav Right (mobile) -->
+                <div class="flex md:hidden items-center gap-3">
+                    <!-- Language Switcher (mobile) -->
+                    <div class="flex items-center gap-2 text-xs tracking-widest" role="group" aria-label="Selector de idioma">
+                        <button type="button" onclick="setLanguage('es')" id="btn-es-mobile" class="lang-active transition-all pb-0.5 cursor-pointer" aria-label="Español">ES</button>
+                        <span class="text-white/20" aria-hidden="true">/</span>
+                        <button type="button" onclick="setLanguage('en')" id="btn-en-mobile" class="lang-inactive transition-all pb-0.5 cursor-pointer" aria-label="English">EN</button>
+                    </div>
+
+                    <!-- Hamburger -->
+                    <button type="button" id="mobile-menu-btn" onclick="toggleMobileMenu()"
+                        class="p-2 text-white/70 hover:text-white transition-colors cursor-pointer" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+                        <i data-lucide="menu" class="w-6 h-6" id="menu-icon-open"></i>
+                        <i data-lucide="x" class="w-6 h-6 hidden" id="menu-icon-close"></i>
                     </button>
                 </div>
             </div>
         </div>
         <!-- Gold accent line -->
         <div class="h-[1px] bg-gradient-to-r from-transparent via-gold-500/40 to-transparent"></div>
+
+        <!-- Menú móvil desplegable -->
+        <div id="mobile-menu" class="md:hidden bg-dark-950/95 backdrop-blur-xl border-b border-white/[0.06] overflow-hidden transition-all duration-300 max-h-0" aria-hidden="true">
+            <div class="px-5 py-6 space-y-5">
+                <!-- WhatsApp -->
+                <a href="https://wa.me/34660892503" target="_blank" rel="noopener noreferrer"
+                   class="flex items-center gap-3 text-white/60 hover:text-green-400 transition-colors group">
+                    <div class="p-2 rounded-full border border-white/10 group-hover:border-green-400/30 group-hover:bg-green-400/10 transition-all">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-sm font-semibold uppercase tracking-widest">Contacta</span>
+                </a>
+
+                <!-- CTA móvil -->
+                <button type="button" onclick="document.getElementById('inscripcion').scrollIntoView({behavior: 'smooth'}); toggleMobileMenu();"
+                    class="w-full bg-gold-500 hover:bg-gold-400 text-dark-950 font-display font-extrabold uppercase tracking-wider px-6 py-3.5 transition-all duration-200 text-xs cursor-pointer hover:shadow-[0_0_30px_rgba(232,185,48,0.35)]">
+                    <span data-i18n="navBtn">Inscríbete</span>
+                </button>
+            </div>
+        </div>
     </nav>
 
     <!-- ═══════════════════════════════════════
@@ -568,6 +605,31 @@
         // Initialize icons
         lucide.createIcons();
 
+        // --- MENÚ MÓVIL ---
+        var mobileMenuOpen = false;
+        function toggleMobileMenu() {
+            var menu = document.getElementById('mobile-menu');
+            var btnMenu = document.getElementById('mobile-menu-btn');
+            var iconOpen = document.getElementById('menu-icon-open');
+            var iconClose = document.getElementById('menu-icon-close');
+            mobileMenuOpen = !mobileMenuOpen;
+
+            if (mobileMenuOpen) {
+                menu.style.maxHeight = menu.scrollHeight + 'px';
+                menu.setAttribute('aria-hidden', 'false');
+                btnMenu.setAttribute('aria-expanded', 'true');
+                iconOpen.classList.add('hidden');
+                iconClose.classList.remove('hidden');
+            } else {
+                menu.style.maxHeight = '0';
+                menu.setAttribute('aria-hidden', 'true');
+                btnMenu.setAttribute('aria-expanded', 'false');
+                iconOpen.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            }
+            lucide.createIcons();
+        }
+
         // --- VIDEO MODAL ---
         function openVideoModal() {
             var modal = document.getElementById('video-modal');
@@ -798,15 +860,15 @@
 
             document.getElementById('html-root').setAttribute('lang', lang);
 
-            var btnEs = document.getElementById('btn-es');
-            var btnEn = document.getElementById('btn-en');
-            if (lang === 'es') {
-                btnEs.className = 'lang-active transition-all pb-0.5 cursor-pointer';
-                btnEn.className = 'lang-inactive transition-all pb-0.5 cursor-pointer';
-            } else {
-                btnEs.className = 'lang-inactive transition-all pb-0.5 cursor-pointer';
-                btnEn.className = 'lang-active transition-all pb-0.5 cursor-pointer';
-            }
+            // Sincronizar botones de idioma (desktop + móvil)
+            var esButtons = [document.getElementById('btn-es'), document.getElementById('btn-es-mobile')];
+            var enButtons = [document.getElementById('btn-en'), document.getElementById('btn-en-mobile')];
+            esButtons.forEach(function(btn) {
+                if (btn) btn.className = lang === 'es' ? 'lang-active transition-all pb-0.5 cursor-pointer' : 'lang-inactive transition-all pb-0.5 cursor-pointer';
+            });
+            enButtons.forEach(function(btn) {
+                if (btn) btn.className = lang === 'en' ? 'lang-active transition-all pb-0.5 cursor-pointer' : 'lang-inactive transition-all pb-0.5 cursor-pointer';
+            });
 
             document.querySelectorAll('[data-i18n]').forEach(function(el) {
                 var key = el.getAttribute('data-i18n');
