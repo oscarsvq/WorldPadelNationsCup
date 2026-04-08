@@ -84,6 +84,7 @@ España, México, Italia, Portugal, UK, Dubai (AE), Indonesia, Costa Rica
 - [x] Countdown al Master Final
 - [x] Selector de países interactivo
 - [x] Navegación responsive con menú hamburguesa móvil
+- [x] Tipografía hero responsive (clamp con mínimos seguros para 320px+)
 - [x] SEO básico (meta tags, Open Graph, Twitter Cards)
 - [x] Accesibilidad básica (aria, skip-to-content, reduced-motion)
 
@@ -102,5 +103,17 @@ España, México, Italia, Portugal, UK, Dubai (AE), Indonesia, Costa Rica
 
 ---
 
+## Tipografía Responsive (referencia rápida)
+```
+display-lg: clamp(1.75rem, 8vw, 9rem)   — Hero title
+display-md: clamp(1.75rem, 5vw, 5rem)   — Section titles
+display-sm: clamp(1.25rem, 3vw, 2.5rem) — Subsection titles
+```
+- Siempre verificar que textos largos (ej. "BARCELONA") caben en 320px (280px contenido)
+- Clase `.hero-title` con `overflow-wrap: break-word` + `max-width: 100%` como red de seguridad
+- Contenedor hero con `overflow-hidden` para prevenir scroll horizontal
+
 ## Reglas aprendidas
-<!-- Se irán añadiendo conforme se resuelvan bugs -->
+- **Clamp font-size**: el valor mínimo del `clamp()` debe ser lo suficientemente pequeño para pantallas de 320px. Nunca usar mínimos > 2rem para títulos con palabras largas como "BARCELONA" (Syne ExtraBold es especialmente ancha).
+- **Navbar móvil**: separar navegación desktop (`hidden md:flex`) y móvil (`flex md:hidden`) con menú hamburguesa desplegable. Sincronizar estado de idioma entre ambos.
+- **Tailwind rebuild**: siempre ejecutar `npm run build:css` tras modificar `input.css`, `tailwind.config.js` o clases en `index.html`.
