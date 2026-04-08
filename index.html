@@ -25,7 +25,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
 
     <!-- CSP: Restricts origins for scripts, styles, media, and frames -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; media-src 'self'; frame-ancestors 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; media-src 'self'; connect-src 'self' https://api.emailjs.com; frame-ancestors 'none'">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- Preconnect for Google Fonts (eliminates DNS+TLS latency) -->
@@ -406,6 +406,8 @@
 
     <!-- Lucide Icons (v0.460.0, self-hosted — no external CDN risk) -->
     <script src="lucide.min.js"></script>
+    <!-- EmailJS SDK (self-hosted) -->
+    <script src="emailjs.min.js"></script>
 
     <script>
         // Initialize icons
@@ -519,9 +521,11 @@
                 statusSoon: "Próximamente",
 
                 formSuccess: "✓ Inscripción enviada",
+                formSending: "Enviando...",
                 formErrorFields: "Por favor, completa todos los campos.",
                 formErrorTerms: "Debes aceptar la normativa.",
-                formErrorEmail: "Por favor, introduce emails válidos."
+                formErrorEmail: "Por favor, introduce emails válidos.",
+                formErrorSend: "Error al enviar. Inténtalo de nuevo."
             },
             en: {
                 navBtn: "Register Now",
@@ -600,9 +604,11 @@
                 statusSoon: "Coming Soon",
 
                 formSuccess: "✓ Registration sent",
+                formSending: "Sending...",
                 formErrorFields: "Please fill in all fields.",
                 formErrorTerms: "You must accept the regulations.",
-                formErrorEmail: "Please enter valid emails."
+                formErrorEmail: "Please enter valid emails.",
+                formErrorSend: "Error sending. Please try again."
             }
         };
 
@@ -725,6 +731,24 @@
         updateCountdown();
         setInterval(updateCountdown, 60000);
 
+        // --- EMAILJS CONFIG ---
+        // 1. Create free account at https://www.emailjs.com
+        // 2. Add an Email Service (Gmail, Outlook, etc.) → copy Service ID
+        // 3. Create template "admin_notification" → copy Template ID
+        // 4. Create template "user_confirmation" → copy Template ID
+        // 5. Copy your Public Key from Account → General
+        // 6. Replace the values below:
+        var EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+        var EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+        var EMAILJS_ADMIN_TEMPLATE = 'YOUR_ADMIN_TEMPLATE_ID';
+        var EMAILJS_USER_TEMPLATE = 'YOUR_USER_TEMPLATE_ID';
+
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        // Sede code → readable name mapping
+        var sedeNames = { ES: 'España', MX: 'México', IT: 'Italia', PT: 'Portugal', UK: 'UK', CR: 'Costa Rica', AE: 'Dubai', ID: 'Indonesia' };
+        var catNames = { '1M': '1ª Masculina', '2M': '2ª Masculina', '3M': '3ª Masculina', '4M': '4ª Masculina', '2F': '2ª Femenina', '3F': '3ª Femenina', '4F': '4ª Femenina' };
+
         // --- FORM VALIDATION & SUBMISSION ---
         document.getElementById('registration-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -754,12 +778,46 @@
                 return;
             }
 
-            // TODO: Send data to a backend service (Formspree, Supabase, Google Forms, etc.)
+            // Disable button while sending
             var btn = document.getElementById('submit-btn');
-            btn.textContent = t.formSuccess;
             btn.disabled = true;
-            btn.classList.remove('bg-amber-500', 'hover:bg-white');
-            btn.classList.add('bg-emerald-500', 'cursor-not-allowed');
+            btn.textContent = t.formSending;
+            btn.classList.add('opacity-60');
+
+            var sedeName = sedeNames[sede] || sede;
+            var catName = catNames[cat] || cat;
+
+            // Shared template params
+            var params = {
+                sede: sedeName,
+                categoria: catName,
+                nombre1: n1,
+                email1: e1,
+                nombre2: n2,
+                email2: e2,
+                fecha: new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
+            };
+
+            // Send all 3 emails: 1 admin + 1 confirmation per player
+            Promise.all([
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_ADMIN_TEMPLATE, params),
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_USER_TEMPLATE, Object.assign({}, params, { to_email: e1, to_name: n1, partner_name: n2 })),
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_USER_TEMPLATE, Object.assign({}, params, { to_email: e2, to_name: n2, partner_name: n1 }))
+            ]).then(function() {
+                btn.textContent = t.formSuccess;
+                btn.classList.remove('bg-amber-500', 'hover:bg-white', 'opacity-60');
+                btn.classList.add('bg-emerald-500', 'cursor-not-allowed');
+            }).catch(function(err) {
+                btn.disabled = false;
+                btn.textContent = t.formErrorSend;
+                btn.classList.remove('opacity-60');
+                btn.classList.add('bg-red-500');
+                setTimeout(function() {
+                    btn.textContent = translations[currentLang].btnSubmit;
+                    btn.classList.remove('bg-red-500');
+                    btn.classList.add('bg-amber-500');
+                }, 3000);
+            });
         });
 
         // Initialize
